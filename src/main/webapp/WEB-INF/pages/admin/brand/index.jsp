@@ -58,11 +58,11 @@
             <div class="container-fluid">
 
                 <div>
-                    <a href="${pageContext.request.contextPath}/manager/category/new" class="btn btn-primary btn-icon-split">
+                    <a href="${pageContext.request.contextPath}/manager/brand/new" class="btn btn-primary btn-icon-split">
                             <span class="icon text-white-50">
                                 <i class="fas fa-flag"></i>
                             </span>
-                        <span class="text">Thêm danh mục</span>
+                        <span class="text">Thêm thương hiệu</span>
                     </a>
                 </div>
                 <br>
@@ -79,30 +79,31 @@
                         <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
                     </div>
                     <div class="card-body">
+
                         <div class="table-responsive">
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
                                     <th>Id</th>
-                                    <th>Tên danh mục</th>
+                                    <th>Tên thương hiệu</th>
                                     <th>Chức năng</th>
                                 </tr>
                                 </thead>
                                 <tfoot>
                                 <tr>
                                     <th>Id</th>
-                                    <th>Tên danh mục</th>
+                                    <th>Tên thương hiệu</th>
                                     <th>Chức năng</th>
                                 </tr>
                                 </tfoot>
                                 <tbody>
-                                    <c:forEach items="${listCategory}" var="category">
+                                    <c:forEach items="${listBrand}" var="brand">
                                     <tr>
-                                            <td>${category.id}</td>
-                                            <td>${category.name}</td>
+                                            <td>${brand.id}</td>
+                                            <td>${brand.name}</td>
                                             <td>
-                                                <a class="btn btn-success" href="${pageContext.request.contextPath}/manager/category/edit?id=${category.id}">Edit</a>
-                                                <a class="btn btn-danger" href="${pageContext.request.contextPath}/manager/category/delete?id=${category.id}">Delete</a>
+                                                <a class="btn btn-success" href="${pageContext.request.contextPath}/manager/brand/edit?id=${brand.id}">Edit</a>
+                                                <a class="btn btn-danger" onclick="return confirm("Bạn muốn xóa mục này");" href="${pageContext.request.contextPath}/manager/brand/delete?id=${brand.id}">Delete</a>
                                             </td>
                                     </tr>
                                     </c:forEach>

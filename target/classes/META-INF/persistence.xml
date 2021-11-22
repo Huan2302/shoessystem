@@ -5,12 +5,12 @@
              version="2.2">
     <persistence-unit name="SalesDB">
 
-        <class>com.shoes.customer.entity.BrandEntity</class>
-        <class>com.shoes.customer.entity.CategoryEntity</class>
-        <class>com.shoes.customer.entity.OderEntity</class>
-        <class>com.shoes.customer.entity.OderDetailEntity</class>
-        <class>com.shoes.customer.entity.ProductEntity</class>
-        <class>com.shoes.customer.entity.UserEntity</class>
+        <class>com.shoes.customer.entity.Brand</class>
+        <class>com.shoes.customer.entity.Category</class>
+        <class>com.shoes.customer.entity.Oder</class>
+        <class>com.shoes.customer.entity.OderDetail</class>
+        <class>com.shoes.customer.entity.Product</class>
+        <class>com.shoes.customer.entity.User</class>
 
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/shoes" />

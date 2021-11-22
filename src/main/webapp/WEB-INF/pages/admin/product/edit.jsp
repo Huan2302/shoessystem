@@ -8,6 +8,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="s" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -56,62 +57,85 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
+                <div class="col-md-7 col-lg-8">
+                    <h4 class="mb-3">Thêm danh mục</h4>
 
-                <div>
-                    <a href="${pageContext.request.contextPath}/manager/category/new" class="btn btn-primary btn-icon-split">
-                            <span class="icon text-white-50">
-                                <i class="fas fa-flag"></i>
-                            </span>
-                        <span class="text">Thêm danh mục</span>
-                    </a>
-                </div>
-                <br>
-                <c:if test="${not empty msg}">
-                    <div>
-                        <p class="text-success">
-                            <span class="text">${msg}</span>
-                        </p>
-                    </div>
-                </c:if>
-                <!-- DataTales Example -->
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
-                    </div>
-                    <div class="card-body">
+                    <s:form method="POST"  modelAttribute="product" action="${pageContext.request.contextPath}/manager/product/edit" enctype="multipart/form-data">
+                        <!-- input text code -->
+                        <s:hidden path="id" class="form-control" />
+                        <!-- input text code-->
                         <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Tên danh mục</th>
-                                    <th>Chức năng</th>
-                                </tr>
-                                </thead>
-                                <tfoot>
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Tên danh mục</th>
-                                    <th>Chức năng</th>
-                                </tr>
-                                </tfoot>
-                                <tbody>
-                                    <c:forEach items="${listCategory}" var="category">
-                                    <tr>
-                                            <td>${category.id}</td>
-                                            <td>${category.name}</td>
-                                            <td>
-                                                <a class="btn btn-success" href="${pageContext.request.contextPath}/manager/category/edit?id=${category.id}">Edit</a>
-                                                <a class="btn btn-danger" href="${pageContext.request.contextPath}/manager/category/delete?id=${category.id}">Delete</a>
-                                            </td>
-                                    </tr>
-                                    </c:forEach>
-                                </tbody>
-                            </table>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="">Name</span>
+                                </div>
+                                <s:input path="name" class="form-control" />
+                            </div>
                         </div>
-                    </div>
-                </div>
+                        <div class="table-responsive">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="">Price</span>
+                                </div>
+                                <s:input path="price" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="">Description</span>
+                                </div>
+                                <s:textarea path="description" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="table-responsive mt-3">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="">Size</span>
+                                </div>
+                                <s:input path="size" class="form-control"/>
+                            </div>
+                        </div>
 
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Photo</span>
+                            </div>
+                            <div class="custom-file">
+                                <!-- id="inputGroupFile01 -->
+                                <input type="file" name="file" class="custom-file-input"/>
+                                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="">Category</span>
+                                </div>
+                                <s:select path="category.id" class="custom-select" id="inputGroupSelect01">
+                                    <c:forEach items="${listCategory}" var="category">
+                                        <s:option value="${category.id}">${category.name}</s:option>
+                                    </c:forEach>
+                                </s:select>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="">Brand</span>
+                                </div>
+                                <s:select path="brand.id" class="custom-select" id="inputGroupSelect01">
+                                    <c:forEach items="${listBrand}" var="brand">
+                                        <s:option value="${brand.id}">${brand.name}</s:option>
+                                    </c:forEach>
+                                </s:select>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </s:form>
+                </div>
             </div>
             <!-- /.container-fluid -->
 

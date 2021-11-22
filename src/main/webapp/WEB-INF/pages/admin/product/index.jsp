@@ -58,11 +58,11 @@
             <div class="container-fluid">
 
                 <div>
-                    <a href="${pageContext.request.contextPath}/manager/category/new" class="btn btn-primary btn-icon-split">
+                    <a href="${pageContext.request.contextPath}/manager/product/new" class="btn btn-primary btn-icon-split">
                             <span class="icon text-white-50">
                                 <i class="fas fa-flag"></i>
                             </span>
-                        <span class="text">Thêm danh mục</span>
+                        <span class="text">Thêm Sản phẩm</span>
                     </a>
                 </div>
                 <br>
@@ -84,25 +84,48 @@
                                 <thead>
                                 <tr>
                                     <th>Id</th>
-                                    <th>Tên danh mục</th>
-                                    <th>Chức năng</th>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Mô tả</th>
+                                    <th>Giá</th>
+                                    <th>Size</th>
+                                    <th>Ảnh</th>
+                                    <th>Thương hiệu</th>
+                                    <th>Danh mục</th>
+                                    <th>Sửa</th>
+                                    <th>Xóa</th>
                                 </tr>
                                 </thead>
                                 <tfoot>
                                 <tr>
                                     <th>Id</th>
-                                    <th>Tên danh mục</th>
-                                    <th>Chức năng</th>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Mô tả</th>
+                                    <th>Giá</th>
+                                    <th>Size</th>
+                                    <th>Ảnh</th>
+                                    <th>Thương hiệu</th>
+                                    <th>Danh mục</th>
+                                    <th>Sửa</th>
+                                    <th>Xóa</th>
                                 </tr>
                                 </tfoot>
                                 <tbody>
-                                    <c:forEach items="${listCategory}" var="category">
+                                    <c:forEach items="${listProduct}" var="product" >
                                     <tr>
-                                            <td>${category.id}</td>
-                                            <td>${category.name}</td>
+                                            <td>${product.id}</td>
+                                            <td>${product.name}</td>
+                                            <td>${product.description}</td>
+                                            <td>${product.price}</td>
+                                            <td>${product.size}</td>
                                             <td>
-                                                <a class="btn btn-success" href="${pageContext.request.contextPath}/manager/category/edit?id=${category.id}">Edit</a>
-                                                <a class="btn btn-danger" href="${pageContext.request.contextPath}/manager/category/delete?id=${category.id}">Delete</a>
+                                                <img src="${pageContext.request.contextPath}/img/${product.img}" class="img img-fluid" width="100px" />
+                                            </td>
+                                            <td>${product.brand.name}</td>
+                                            <td>${product.category.name}</td>
+                                            <td><a class="btn btn-success" href="${pageContext.request.contextPath}/manager/product/edit?id=${product.id}">Edit</a></td>
+                                            <td>
+
+                                                <a class="btn btn-danger" href="${pageContext.request.contextPath}/manager/product/delete?id=${product.id}">Delete</a>
                                             </td>
                                     </tr>
                                     </c:forEach>

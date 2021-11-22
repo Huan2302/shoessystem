@@ -58,11 +58,11 @@
             <div class="container-fluid">
 
                 <div>
-                    <a href="${pageContext.request.contextPath}/manager/category/new" class="btn btn-primary btn-icon-split">
+                    <a href="${pageContext.request.contextPath}/manager/user/new" class="btn btn-primary btn-icon-split">
                             <span class="icon text-white-50">
                                 <i class="fas fa-flag"></i>
                             </span>
-                        <span class="text">Thêm danh mục</span>
+                        <span class="text">Thêm tài khoản</span>
                     </a>
                 </div>
                 <br>
@@ -84,25 +84,42 @@
                                 <thead>
                                 <tr>
                                     <th>Id</th>
-                                    <th>Tên danh mục</th>
-                                    <th>Chức năng</th>
+                                    <th>Email</th>
+                                    <th>Mật khẩu</th>
+                                    <th>Số điện thoại</th>
+                                    <th>Tên</th>
+                                    <th>Phân Quyền</th>
+                                    <th>Địa chỉ</th>
+                                    <th>Sửa</th>
+                                    <th>Xóa</th>
                                 </tr>
                                 </thead>
                                 <tfoot>
                                 <tr>
                                     <th>Id</th>
-                                    <th>Tên danh mục</th>
-                                    <th>Chức năng</th>
+                                    <th>Email</th>
+                                    <th>Mật khẩu</th>
+                                    <th>Số điện thoại</th>
+                                    <th>Tên</th>
+                                    <th>Phân Quyền</th>
+                                    <th>Địa chỉ</th>
+                                    <th>Sửa</th>
+                                    <th>Xóa</th>
                                 </tr>
                                 </tfoot>
                                 <tbody>
-                                    <c:forEach items="${listCategory}" var="category">
+                                    <c:forEach items="${listUser}" var="user">
                                     <tr>
-                                            <td>${category.id}</td>
-                                            <td>${category.name}</td>
+                                            <td>${user.id}</td>
+                                            <td>${user.email}</td>
+                                            <td>${user.password}</td>
+                                            <td>${user.phoneNumber}</td>
+                                            <td>${user.userName}</td>
+                                            <td>${user.userType}</td>
+                                            <td>${user.address}</td>
+                                            <td><a class="btn btn-success" href="${pageContext.request.contextPath}/manager/user/edit?id=${user.id}">Edit</a></td>
                                             <td>
-                                                <a class="btn btn-success" href="${pageContext.request.contextPath}/manager/category/edit?id=${category.id}">Edit</a>
-                                                <a class="btn btn-danger" href="${pageContext.request.contextPath}/manager/category/delete?id=${category.id}">Delete</a>
+                                                <a class="btn btn-danger" href="${pageContext.request.contextPath}/manager/user/delete?id=${user.id}">Delete</a>
                                             </td>
                                     </tr>
                                     </c:forEach>
