@@ -73,6 +73,13 @@
                         </p>
                     </div>
                 </c:if>
+                <c:if test="${not empty msg_err}">
+                    <div>
+                        <p class="text-danger">
+                            <span class="text">${msg_err}</span>
+                        </p>
+                    </div>
+                </c:if>
                 <!-- DataTales Example -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
@@ -88,6 +95,7 @@
                                     <th>Mô tả</th>
                                     <th>Giá</th>
                                     <th>Size</th>
+                                    <th>Số lượng</th>
                                     <th>Ảnh</th>
                                     <th>Thương hiệu</th>
                                     <th>Danh mục</th>
@@ -102,6 +110,7 @@
                                     <th>Mô tả</th>
                                     <th>Giá</th>
                                     <th>Size</th>
+                                    <th>Số lượng</th>
                                     <th>Ảnh</th>
                                     <th>Thương hiệu</th>
                                     <th>Danh mục</th>
@@ -117,8 +126,14 @@
                                             <td>${product.description}</td>
                                             <td>${product.price}</td>
                                             <td>${product.size}</td>
+                                            <td>${product.stock}</td>
                                             <td>
-                                                <img src="${pageContext.request.contextPath}/img/${product.img}" class="img img-fluid" width="100px" />
+                                                <c:if test="${not empty product.imgs}">
+                                                    <c:forEach var="img" items="${product.imgs}">
+                                                        <img width="20px" src="${pageContext.request.contextPath}/img/${img.name}" class="img img-fluid" width="100px" />
+                                                    </c:forEach>
+                                                </c:if>
+
                                             </td>
                                             <td>${product.brand.name}</td>
                                             <td>${product.category.name}</td>

@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 @Transactional
 public class BrandService {
-    @Autowired private BrandReponsitory repo;
+    @Autowired private BrandReponsitory repo; //DI IOC
     public void save(Brand brand) {
         repo.save(brand);
     }

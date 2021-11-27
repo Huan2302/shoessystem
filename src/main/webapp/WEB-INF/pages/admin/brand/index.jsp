@@ -73,6 +73,13 @@
                         </p>
                     </div>
                 </c:if>
+                <c:if test="${not empty msg_err}">
+                    <div>
+                        <p class="text-danger">
+                            <span class="text">${msg_err}</span>
+                        </p>
+                    </div>
+                </c:if>
                 <!-- DataTales Example -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">

@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 @Transactional
 public class CategoryService {
-    @Autowired private CategoryReponsitory repo;
+    @Autowired private CategoryReponsitory repo; //DI
     public void save(Category category) {
         repo.save(category);
     }
@@ -27,4 +27,5 @@ public class CategoryService {
     public void delete(Long id) {
         repo.deleteById(id);
     }
+
 }

@@ -70,8 +70,13 @@ public class UserController {
 
     @RequestMapping("/manager/user/delete")
     public String deleteAccountForm(@RequestParam long id, RedirectAttributes rs) {
-        userService.delete(id);
-        rs.addFlashAttribute("msg", MessageConstant.DELETE_SUSSCESS);
-        return "redirect:/manager/user";
+        try{
+            userService.delete(id);
+            rs.addFlashAttribute("msg", MessageConstant.DELETE_SUSSCESS);
+            return "redirect:/manager/user";
+        }catch (Exception e){
+            rs.addFlashAttribute("msg_err", MessageConstant.DELETE_SUSSCESS);
+            return "redirect:/manager/user";
+        }
     }
 }

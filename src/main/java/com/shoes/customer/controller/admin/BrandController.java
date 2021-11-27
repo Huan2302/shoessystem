@@ -65,8 +65,13 @@ public class BrandController {
 
     @RequestMapping("/manager/brand/delete")
     public String deleteAccountForm(@RequestParam long id, RedirectAttributes re) {
-        re.addFlashAttribute("msg", MessageConstant.DELETE_SUSSCESS);
-        brandService.delete(id);
-        return "redirect:/manager/brand";
+        try {
+            brandService.delete(id);
+            re.addFlashAttribute("msg", MessageConstant.DELETE_SUSSCESS);
+            return "redirect:/manager/brand";
+        }catch (Exception e){
+            re.addFlashAttribute("msg_err", MessageConstant.DELETE_ERROR);
+            return "redirect:/manager/brand";
+        }
     }
 }

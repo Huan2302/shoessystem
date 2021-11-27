@@ -10,6 +10,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @EnableWebMvc
 public class WebAppConfig extends WebMvcConfigurerAdapter {
 
+	//spring mvc + hibernate + spring datajpa
+	//jdbc -> sql + mapper
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/**").addResourceLocations("/");

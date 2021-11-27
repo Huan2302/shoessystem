@@ -33,7 +33,13 @@
 
     <!-- Custom styles for this page -->
     <link href="<%=request.getContextPath()%>/teamplate/admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-
+    <style>
+        .error{
+            padding-left: 8px;
+            font-size: 20px;
+            color: red;
+        }
+    </style>
 </head>
 
 <body id="page-top">
@@ -60,7 +66,7 @@
                 <div class="col-md-7 col-lg-8">
                     <h4 class="mb-3">Thêm danh mục</h4>
 
-                    <s:form method="POST"  modelAttribute="category" action="${pageContext.request.contextPath}/manager/category/new">
+                    <s:form id="myForm" method="POST"  modelAttribute="category" action="${pageContext.request.contextPath}/manager/category/new">
                         <!-- input text code -->
                         <s:hidden path="id" class="form-control" />
                         <!-- input text code-->
@@ -69,10 +75,11 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="">Name</span>
                                 </div>
-                                <s:input path="name" class="form-control" />
+                                <s:input path="name" autocomplete="on" class="form-control" />
+
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary" onclick="submitForm();">Submit</button>
                     </s:form>
                 </div>
             </div>
@@ -122,8 +129,11 @@
     </div>
 </div>
 
+
+
 <!-- Bootstrap core JavaScript-->
 <script src="<%=request.getContextPath()%>/teamplate/admin/vendor/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
 <script src="<%=request.getContextPath()%>/teamplate/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 <!-- Core plugin JavaScript-->
@@ -138,7 +148,27 @@
 
 <!-- Page level custom scripts -->
 <script src="<%=request.getContextPath()%>/teamplate/admin/js/demo/datatables-demo.js"></script>
-
+<script type="text/javascript">
+    function submitForm()
+    {
+        $("#myForm").validate({
+            rules:
+                {
+                    "name":
+                        {
+                            required: true
+                        }
+                },
+            messages:
+                {
+                    "name":
+                        {
+                            required: "Vui lòng nhập"
+                        }
+                }
+        });
+    }
+</script>
 </body>
 
 </html>

@@ -96,6 +96,14 @@
                                 <s:input path="size" class="form-control"/>
                             </div>
                         </div>
+                        <div class="table-responsive mt-3">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="">Stock</span>
+                                </div>
+                                <s:input path="stock" class="form-control"/>
+                            </div>
+                        </div>
 
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
@@ -103,7 +111,7 @@
                             </div>
                             <div class="custom-file">
                                 <!-- id="inputGroupFile01 -->
-                                <input type="file" name="file" class="custom-file-input"/>
+                                <input type="file" name="file" multiple="multiple" class="custom-file-input"/>
                                 <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
                             </div>
                         </div>

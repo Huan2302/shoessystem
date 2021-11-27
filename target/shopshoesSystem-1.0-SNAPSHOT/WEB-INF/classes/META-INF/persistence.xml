@@ -9,8 +9,10 @@
         <class>com.shoes.customer.entity.Category</class>
         <class>com.shoes.customer.entity.Oder</class>
         <class>com.shoes.customer.entity.OderDetail</class>
+        <class>com.shoes.customer.entity.Product_img</class>
         <class>com.shoes.customer.entity.Product</class>
         <class>com.shoes.customer.entity.User</class>
+
 
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/shoes" />

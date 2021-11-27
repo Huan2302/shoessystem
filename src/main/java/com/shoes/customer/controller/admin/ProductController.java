@@ -1,12 +1,11 @@
 package com.shoes.customer.controller.admin;
 
 import com.shoes.customer.constant.MessageConstant;
-import com.shoes.customer.entity.Brand;
-import com.shoes.customer.entity.Category;
-import com.shoes.customer.entity.Product;
+import com.shoes.customer.entity.*;
 import com.shoes.customer.service.BrandService;
 import com.shoes.customer.service.CategoryService;
 import com.shoes.customer.service.ProductService;
+import com.shoes.customer.service.Product_imgService;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +22,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -31,6 +31,7 @@ public class ProductController {
     @Autowired private ProductService productService;
     @Autowired private CategoryService categoryService;
     @Autowired private BrandService brandService;
+    @Autowired private Product_imgService productImgService;
     @Autowired private ServletContext context;
     @RequestMapping("/manager/product")
     public ModelAndView home() {
@@ -53,68 +54,78 @@ public class ProductController {
 
     @RequestMapping(value = "/manager/product/new", method = RequestMethod.POST)
     public String saveArticle (HttpSession session
-            , @ModelAttribute("product") Product product, @RequestParam("file") MultipartFile multipartFile
+            , @ModelAttribute("product") Product product, @RequestParam("file") List<MultipartFile> multipartFileList
             , HttpServletRequest request, RedirectAttributes re) {
+        productService.save(product);
         try {
-//            if(product.getId() == null) {
-//                Account account = (Account) session.getAttribute("account");
-//                if(account != null) {
-                    if (!multipartFile.isEmpty()) {
+                User user = (User) session.getAttribute("user");
+                if(user != null) {
+                    if (!multipartFileList.isEmpty()) {
+                        for (MultipartFile multipartFile:multipartFileList){
+                            String fileName = multipartFile.getOriginalFilename();
+                            String getFile = getFileNameServer(fileName);
+                            File fileRoot = pathFile(getFile,"img",request);
+                            try {
+                                multipartFile.transferTo(fileRoot);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            Product_img product_img = new Product_img();
+                            product_img.setName(getFile);
+                            product_img.setProduct(product);
+                            productImgService.save(product_img);
+                        }
+                    }
+                    re.addFlashAttribute("msg", MessageConstant.ADD_SUSSCESS);
+                }else {
+                    return "redirect:/dang-nhap";
+                }
+        } catch (Exception e) {
+            System.out.println("lỗi:====================" + e);
+        }
+        return "redirect:/manager/product";
+    }
+
+
+
+    @RequestMapping(value = "/manager/product/edit", method = RequestMethod.POST)
+    public String editArticle (HttpSession session
+            , @ModelAttribute("product") Product product, @RequestParam("file") List<MultipartFile> multipartFileList
+            , HttpServletRequest request, RedirectAttributes re) {
+        Category category = categoryService.get(product.getCategory().getId());
+        product.setCategory(category);
+        Brand brand = brandService.get(product.getBrand().getId());
+        product.setBrand(brand);
+        productService.save(product);
+        try {
+            User user = (User) session.getAttribute("user");
+            if(user != null) {
+                if (!multipartFileList.isEmpty()) {
+                    for (MultipartFile multipartFile:multipartFileList){
                         String fileName = multipartFile.getOriginalFilename();
                         String getFile = getFileNameServer(fileName);
                         File fileRoot = pathFile(getFile,"img",request);
-                        multipartFile.transferTo(fileRoot);
-                        product.setImg(getFile);
+                        try {
+                            multipartFile.transferTo(fileRoot);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        Product_img product_img = new Product_img();
+                        product_img.setName(getFile);
+
+                        productImgService.save(product_img);
                     }
-
-                    Category category = categoryService.get(product.getCategory().getId());
-                    Brand brand = brandService.get(product.getBrand().getId());
-                    product.setCategory(category);
-                    product.setBrand(brand);
-                    productService.save(product);
-            re.addFlashAttribute("msg", MessageConstant.ADD_SUSSCESS);
-//                }else {
-//                    return "redirect:/login";
-//                }
-//            }
-        } catch (Exception e) {
-            System.out.println("lỗi:====================" + e);
-        }
-
-        return "redirect:/manager/product";
-    }
-    @RequestMapping(value = "/manager/product/edit", method = RequestMethod.POST)
-    public String editArticle (HttpSession session
-            , @ModelAttribute("product") Product product, @RequestParam("file") MultipartFile multipartFile
-            , HttpServletRequest request, RedirectAttributes re) {
-        try {
-//            if(product.getId() == null) {
-//                Account account = (Account) session.getAttribute("account");
-//                if(account != null) {
-            if (!multipartFile.isEmpty()) {
-                String fileName = multipartFile.getOriginalFilename();
-                String getFile = getFileNameServer(fileName);
-                File fileRoot = pathFile(getFile,"img",request);
-                multipartFile.transferTo(fileRoot);
-                product.setImg(getFile);
+                }
+                re.addFlashAttribute("msg", MessageConstant.EDIT_SUSSCESS);
+            }else {
+                return "redirect:/dang-nhap";
             }
-
-            Category category = categoryService.get(product.getCategory().getId());
-            Brand brand = brandService.get(product.getBrand().getId());
-            product.setCategory(category);
-            product.setBrand(brand);
-            productService.save(product);
-            re.addFlashAttribute("msg", MessageConstant.EDIT_SUSSCESS);
-//                }else {
-//                    return "redirect:/login";
-//                }
-//            }
         } catch (Exception e) {
             System.out.println("lỗi:====================" + e);
         }
-
         return "redirect:/manager/product";
     }
+
 
     @RequestMapping("/manager/product/edit")
     public ModelAndView editArticleForm(@RequestParam long id,RedirectAttributes re) {
@@ -131,9 +142,14 @@ public class ProductController {
 
     @RequestMapping("/manager/product/delete")
     public String deleteArticleForm(@RequestParam long id , RedirectAttributes rs) {
-        productService.delete(id);
-        rs.addFlashAttribute("msg",MessageConstant.DELETE_SUSSCESS);
-        return "redirect:/manager/product";
+        try{
+            productService.delete(id);
+            rs.addFlashAttribute("msg",MessageConstant.DELETE_SUSSCESS);
+            return "redirect:/manager/product";
+        }catch (Exception e){
+            rs.addFlashAttribute("msg_err",MessageConstant.DELETE_ERROR);
+            return "redirect:/manager/product";
+        }
     }
 
     //đặt lại tên file

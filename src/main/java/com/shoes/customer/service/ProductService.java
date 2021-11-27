@@ -28,4 +28,11 @@ public class ProductService {
     public void delete(Long id) {
         repo.deleteById(id);
     }
+
+    public List<Product> getProductByCategoryId(long id){
+        return repo.getProductByCategoryId(id);
+    }
+    public List<Product> getProductByBrandId(long id){
+        return repo.getProductByBrandId(id);
+    }
 }

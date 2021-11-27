@@ -25,6 +25,7 @@ public class CategoryController {
 
     @RequestMapping("/manager/category")
     public ModelAndView home() {
+        
         List<Category> listCategory = categoryService.listAll();
         ModelAndView mav = new ModelAndView("admin/category/index");
         mav.addObject("listCategory", listCategory);
@@ -64,8 +65,13 @@ public class CategoryController {
 
     @RequestMapping("/manager/category/delete")
     public String deleteAccountForm(@RequestParam long id, RedirectAttributes re) {
-        categoryService.delete(id);
-        re.addFlashAttribute("msg", MessageConstant.DELETE_SUSSCESS);
-        return "redirect:/manager/category";
+        try {
+            categoryService.delete(id);
+            re.addFlashAttribute("msg", MessageConstant.DELETE_SUSSCESS);
+            return "redirect:/manager/category";
+        }catch (Exception e){
+            re.addFlashAttribute("msg_err", MessageConstant.DELETE_ERROR);
+            return "redirect:/manager/category";
+        }
     }
 }

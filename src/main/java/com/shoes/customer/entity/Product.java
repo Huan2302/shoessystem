@@ -12,9 +12,13 @@ public class Product {
     private String  name;
     private float price;
     private String size;
+    private int stock;
     @Column(columnDefinition = "TEXT")
     private String description;
-    private String img;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.MERGE)
+    private List<Product_img> imgs = new ArrayList<>();
+
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE, optional = false)
     @JoinColumn(name = "categoryId", nullable = false)
@@ -67,6 +71,14 @@ public class Product {
         this.description = description;
     }
 
+    public List<Product_img> getImgs() {
+        return imgs;
+    }
+
+    public void setImgs(List<Product_img> imgs) {
+        this.imgs = imgs;
+    }
+
     public Category getCategory() {
         return category;
     }
@@ -94,21 +106,34 @@ public class Product {
     public Product() {
     }
 
-    public String getImg() {
-        return img;
+    public Product(Long id, String name, float price, String size, int stock, String description, List<Product_img> imgs, Category category, Brand brand, List<OderDetail> oders) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.size = size;
+        this.stock = stock;
+        this.description = description;
+        this.imgs = imgs;
+        this.category = category;
+        this.brand = brand;
+        this.oders = oders;
     }
 
-    public void setImg(String img) {
-        this.img = img;
+    public int getStock() {
+        return stock;
     }
 
-    public Product(Long id, String name, float price, String size, String description, String img, Category category, Brand brand, List<OderDetail> oders) {
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+
+    public Product(Long id, String name, float price, String size, String description, List<Product_img> imgs, Category category, Brand brand, List<OderDetail> oders) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.size = size;
         this.description = description;
-        this.img = img;
+        this.imgs = imgs;
         this.category = category;
         this.brand = brand;
         this.oders = oders;

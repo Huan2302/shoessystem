@@ -29,4 +29,8 @@ public class UserService {
     public void delete(Long id) {
         repo.deleteById(id);
     }
+
+    public User login(String email, String password) {
+        return repo.login(email, password);
+    }
 }
