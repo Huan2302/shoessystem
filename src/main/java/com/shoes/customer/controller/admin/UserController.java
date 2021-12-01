@@ -6,6 +6,8 @@ import com.shoes.customer.service.UserService;
 import com.shoes.customer.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,6 +17,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 
@@ -24,11 +28,16 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping("/manager/user")
-    public ModelAndView home() {
-        List<User> listUser = userService.listAll();
-        ModelAndView mav = new ModelAndView("admin/user/index");
-        mav.addObject("listUser", listUser);
-        return mav;
+    public String home(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
+        ModelAndView mav = null;
+        if (user!=null && user.getUserType()==0){
+            List<User> listUser = userService.listAll();
+            model.addAttribute("listUser", listUser);
+        }else {
+            return "redirect:/dang-nhap";
+        }
+        return "admin/user/index";
     }
 
     @RequestMapping("/manager/user/new")
@@ -39,12 +48,17 @@ public class UserController {
     }
 
     @RequestMapping(value = "/manager/user/new", method = RequestMethod.POST)
-    public String saveAccount(@ModelAttribute("account") User user,@RequestParam("password")String pass
-            , HttpServletResponse response,RedirectAttributes rs) {
+    public String saveAccount(@Valid @ModelAttribute("user") User user, BindingResult rs, @RequestParam("password")String pass
+            , HttpServletResponse response, RedirectAttributes rss) {
+
+
+        if(rs.hasErrors()) {
+            return "admin/user/add";
+        }
         user.setPassword(StringUtil.md5(pass));
         response.setCharacterEncoding("utf-8");
         userService.save(user);
-        rs.addFlashAttribute("msg",MessageConstant.ADD_SUSSCESS);
+        rss.addFlashAttribute("msg",MessageConstant.ADD_SUSSCESS);
         return "redirect:/manager/user";
     }
 

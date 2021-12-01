@@ -4,12 +4,10 @@ import com.shoes.customer.entity.*;
 import com.shoes.customer.repository.OderDetailReponsitory;
 import com.shoes.customer.repository.OderReponsitory;
 import com.shoes.customer.repository.ProductReponsitory;
-import com.shoes.customer.service.OderDetailService;
-import com.shoes.customer.service.OderService;
-import com.shoes.customer.service.ProductService;
-import com.shoes.customer.service.UserService;
+import com.shoes.customer.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -25,6 +23,27 @@ public class OderController {
     @Autowired private ProductReponsitory productReponsitory;
     @Autowired private OderReponsitory oderReponsitory;
     @Autowired private OderDetailReponsitory repo; //DI
+    @Autowired private CategoryService categoryService;
+    @Autowired private BrandService brandService;
+
+    @ModelAttribute
+    public void modelAtr(Model model, HttpSession session){
+        User user = (User) session.getAttribute("user");
+        List<OderDetail> list = new ArrayList<>();
+        Oder oder = new Oder();
+        if (user!=null){
+            oder = oderService.findOderByUserId(user.getId());
+            if ( oder!= null && oder.getStatus()==0){
+                list = oderDetailService.findAllByOderDetailId(oder.getId());
+                model.addAttribute("oder",oder);
+            }
+        }else {
+            list=null;
+        }
+        model.addAttribute("listCart",list);
+        model.addAttribute("listCategory", categoryService.listAll());
+        model.addAttribute("listBrand",brandService.listAll());
+    }
 
     @PostMapping("/add-cart")
     public String addCart(HttpSession session,@RequestParam("id")long id,@RequestParam("quantity") int quantity){

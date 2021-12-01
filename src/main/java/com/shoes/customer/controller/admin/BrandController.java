@@ -2,11 +2,12 @@ package com.shoes.customer.controller.admin;
 
 import com.shoes.customer.constant.MessageConstant;
 import com.shoes.customer.entity.Brand;
-import com.shoes.customer.entity.Category;
+import com.shoes.customer.entity.User;
 import com.shoes.customer.service.BrandService;
-import com.shoes.customer.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,6 +17,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 
@@ -25,11 +28,16 @@ public class BrandController {
     private BrandService brandService;
 
     @RequestMapping("/manager/brand")
-    public ModelAndView home() {
-        List<Brand> listBrand = brandService.listAll();
-        ModelAndView mav = new ModelAndView("admin/brand/index");
-        mav.addObject("listBrand", listBrand);
-        return mav;
+    public String home(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
+        ModelAndView mav = null;
+        if (user!=null && user.getUserType()==0){
+            List<Brand> listBrand = brandService.listAll();
+            model.addAttribute("listBrand", listBrand);
+        }else {
+            return "redirect:/dang-nhap";
+        }
+        return "admin/brand/index";
     }
 
     @RequestMapping("/manager/brand/new")
@@ -40,8 +48,11 @@ public class BrandController {
     }
 
     @RequestMapping(value = "/manager/brand/new", method = RequestMethod.POST)
-    public String saveAccount(@ModelAttribute("brand") Brand brand, HttpServletResponse response, RedirectAttributes re) {
+    public String saveAccount(@Valid @ModelAttribute("brand") Brand brand, BindingResult rs , HttpServletResponse response, RedirectAttributes re) {
         response.setCharacterEncoding("utf-8");
+        if(rs.hasErrors()) {
+            return "admin/brand/add";
+        }
                 brandService.save(brand);
         re.addFlashAttribute("msg", MessageConstant.ADD_SUSSCESS);
         return "redirect:/manager/brand";

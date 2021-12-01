@@ -1,6 +1,7 @@
 package com.shoes.customer.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,11 +10,14 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotEmpty(message = "Vui lòng nhập tên sản phẩm")
     private String  name;
     private float price;
+    @NotEmpty(message = "Vui lòng nhập size")
     private String size;
     private int stock;
     @Column(columnDefinition = "TEXT")
+    @NotEmpty(message = "Vui lòng nhập mô tả")
     private String description;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.MERGE)

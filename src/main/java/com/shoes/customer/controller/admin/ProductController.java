@@ -10,6 +10,8 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,8 +23,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -33,12 +37,18 @@ public class ProductController {
     @Autowired private BrandService brandService;
     @Autowired private Product_imgService productImgService;
     @Autowired private ServletContext context;
+
     @RequestMapping("/manager/product")
-    public ModelAndView home() {
-        List<Product> listProduct = productService.listAll();
-        ModelAndView mav = new ModelAndView("admin/product/index");
-        mav.addObject("listProduct", listProduct);
-        return mav;
+    public String home(HttpSession session,Model model) {
+        User user = (User) session.getAttribute("user");
+        ModelAndView mav = null;
+        if (user!=null && user.getUserType()==0){
+            List<Product> listProduct = productService.listAll();
+            model.addAttribute("listProduct", listProduct);
+        }else {
+            return "redirect:/dang-nhap";
+        }
+        return "admin/product/index";
     }
 
     @RequestMapping(value = "/manager/product/new", method = RequestMethod.GET)
@@ -54,13 +64,16 @@ public class ProductController {
 
     @RequestMapping(value = "/manager/product/new", method = RequestMethod.POST)
     public String saveArticle (HttpSession session
-            , @ModelAttribute("product") Product product, @RequestParam("file") List<MultipartFile> multipartFileList
+            , @Valid @ModelAttribute("product") Product product, BindingResult rs, @RequestParam("file") List<MultipartFile> multipartFileList
             , HttpServletRequest request, RedirectAttributes re) {
+        if(rs.hasErrors()) {
+            return "admin/product/add";
+        }
         productService.save(product);
         try {
                 User user = (User) session.getAttribute("user");
                 if(user != null) {
-                    if (!multipartFileList.isEmpty()) {
+                    if (!multipartFileList.get(0).getOriginalFilename().equals("")) {
                         for (MultipartFile multipartFile:multipartFileList){
                             String fileName = multipartFile.getOriginalFilename();
                             String getFile = getFileNameServer(fileName);
@@ -92,15 +105,18 @@ public class ProductController {
     public String editArticle (HttpSession session
             , @ModelAttribute("product") Product product, @RequestParam("file") List<MultipartFile> multipartFileList
             , HttpServletRequest request, RedirectAttributes re) {
-        Category category = categoryService.get(product.getCategory().getId());
-        product.setCategory(category);
-        Brand brand = brandService.get(product.getBrand().getId());
-        product.setBrand(brand);
-        productService.save(product);
-        try {
-            User user = (User) session.getAttribute("user");
-            if(user != null) {
-                if (!multipartFileList.isEmpty()) {
+        User user = (User) session.getAttribute("user");
+        if(user != null) {
+            if (!multipartFileList.get(0).getOriginalFilename().equals("")) {
+                productImgService.deleteProduct_imgByProductId(product.getId());
+            }
+            Category category = categoryService.get(product.getCategory().getId());
+            product.setCategory(category);
+            Brand brand = brandService.get(product.getBrand().getId());
+            product.setBrand(brand);
+            productService.save(product);
+            try {
+                if (!multipartFileList.get(0).getOriginalFilename().equals("")) {
                     for (MultipartFile multipartFile:multipartFileList){
                         String fileName = multipartFile.getOriginalFilename();
                         String getFile = getFileNameServer(fileName);
@@ -112,37 +128,44 @@ public class ProductController {
                         }
                         Product_img product_img = new Product_img();
                         product_img.setName(getFile);
-
+                        product_img.setProduct(product);
                         productImgService.save(product_img);
                     }
                 }
                 re.addFlashAttribute("msg", MessageConstant.EDIT_SUSSCESS);
-            }else {
-                return "redirect:/dang-nhap";
+
+            } catch (Exception e) {
+                System.out.println("lỗi:====================");
             }
-        } catch (Exception e) {
-            System.out.println("lỗi:====================" + e);
+        }else {
+            return "redirect:/dang-nhap";
         }
         return "redirect:/manager/product";
     }
 
 
     @RequestMapping("/manager/product/edit")
-    public ModelAndView editArticleForm(@RequestParam long id,RedirectAttributes re) {
-        ModelAndView mav = new ModelAndView("admin/product/edit");
-        Product product = productService.get(id);
-        List<Category> listCategory = categoryService.listAll();
-        List<Brand> listBrand = brandService.listAll();
-        mav.addObject("listCategory",listCategory);
-        mav.addObject("listBrand",listBrand);
-        mav.addObject("product", product);
-
+    public ModelAndView editArticleForm(@RequestParam long id,RedirectAttributes re,HttpSession session) {
+        ModelAndView mav = null;
+        User user = (User) session.getAttribute("user");
+        if(user != null) {
+            mav = new ModelAndView("admin/product/edit");
+            Product product = productService.get(id);
+            List<Category> listCategory = categoryService.listAll();
+            List<Brand> listBrand = brandService.listAll();
+            mav.addObject("listCategory", listCategory);
+            mav.addObject("listBrand", listBrand);
+            mav.addObject("product", product);
+        }else {
+            mav= new ModelAndView("login");
+        }
         return mav;
     }
 
     @RequestMapping("/manager/product/delete")
     public String deleteArticleForm(@RequestParam long id , RedirectAttributes rs) {
         try{
+            productImgService.deleteProduct_imgByProductId(id);
             productService.delete(id);
             rs.addFlashAttribute("msg",MessageConstant.DELETE_SUSSCESS);
             return "redirect:/manager/product";

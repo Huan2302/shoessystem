@@ -2,10 +2,12 @@ package com.shoes.customer.controller.admin;
 
 import com.shoes.customer.constant.MessageConstant;
 import com.shoes.customer.entity.Category;
+import com.shoes.customer.entity.User;
 import com.shoes.customer.service.CategoryService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
@@ -24,12 +27,15 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @RequestMapping("/manager/category")
-    public ModelAndView home() {
-        
-        List<Category> listCategory = categoryService.listAll();
-        ModelAndView mav = new ModelAndView("admin/category/index");
-        mav.addObject("listCategory", listCategory);
-        return mav;
+    public String home(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
+        if (user!=null && user.getUserType()==0){
+            List<Category> listCategory = categoryService.listAll();
+            model.addAttribute("listCategory", listCategory);
+        }else {
+            return "redirect:/dang-nhap";
+        }
+        return "admin/category/index";
     }
 
     @RequestMapping("/manager/category/new")

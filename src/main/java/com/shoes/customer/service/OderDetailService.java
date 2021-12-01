@@ -48,7 +48,7 @@ public class OderDetailService {
         int addedQuantity = quantity;
         Product product = productReponsitory.findById(productId).get();
 
-        Oder oder = oderReponsitory.findOderByUser(user);
+        Oder oder = oderReponsitory.findOderByUserId(user.getId());
 
         System.out.println("1");
         OderDetail oderDetail=null;
@@ -67,7 +67,6 @@ public class OderDetailService {
                 oderDetail.setUnitPrice(product.getPrice());
                 oderDetail.setTotal(quantity*(product.getPrice()));
             }
-//            oderDetailReponsitory.save(oderDetail);
             oder.setOderDate(new Date());
             oder.setTotal(oder.getTotal()+oderDetail.getTotal());
         }else {

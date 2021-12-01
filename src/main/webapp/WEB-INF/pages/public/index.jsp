@@ -1,4 +1,5 @@
-﻿<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+﻿<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
   <jsp:include page="./_header.jsp"></jsp:include>
   
@@ -19,7 +20,7 @@
                   <div class="p-5 xx-p-15 text-center">
                     <h1 class="text-uppercase animated jackInTheBox"><span>New</span> Footwear </h1>
                     <p class="mt-20 mb-30 animated slideInLeft">Enjoy up to 30% Off</p>
-                    <a class="btn theme-button animated slideInRight" href="shop-grid-left-sidebar.html">Shop Now </a> </div>
+                    <a class="btn theme-button animated slideInRight" href="${pageContext.request.contextPath}/danh-muc/${listCategory[0].id}">Shop Now </a> </div>
                 </div>
               </div>
             </div>
@@ -41,8 +42,8 @@
      		 	<a href="javascript:void(0)"><img class="img-fluid" src="<%=request.getContextPath()%>/teamplate/public/images/category/cat-03.jpg" alt="Card image"></a>
      		 </div>
       		 <div class="cat-text cat-1">
-      		 	<h4><a href="javascript:void(0)">Women's wear</a></h4>
-      		 	<p>Sale 20% Off</p>
+      		 	<h4><a href="${pageContext.request.contextPath}/danh-muc/${listCategory[0].id}">${listCategory[0].name}</a></h4>
+      		 	<p>Nâng tầm cuộc sống</p>
       		 </div> 
       	</div>
       	<div class="col-lg-3 col-sm-3 xs-mb-30">
@@ -50,7 +51,7 @@
      		 	<a href="javascript:void(0)"><img class="img-fluid" src="<%=request.getContextPath()%>/teamplate/public/images/category/cat-01.jpg" alt="Card image"></a>
      		 </div>
       		 <div class="cat-text cat-2">
-      		 	<h4><a href="javascript:void(0)">men's Shoes</a></h4>
+               <h4><a href="${pageContext.request.contextPath}/danh-muc/${listCategory[1].id}">${listCategory[1].name}</a></h4>
       		 	<p>Sale 50% Off</p>
       		 </div>
       	</div>
@@ -59,14 +60,14 @@
      		 	<a href="javascript:void(0)"><img class="img-fluid" src="<%=request.getContextPath()%>/teamplate/public/images/category/cat-04.jpg" alt="Card image"></a>
      		 </div>
       		 <div class="cat-text cat-3">
-      		 	<h4><a href="javascript:void(0)">men's wear</a></h4>
+               <h4><a href="${pageContext.request.contextPath}/danh-muc/${listCategory[2].id}">${listCategory[2].name}</a></h4>
       		 	<p>Sale 30% Off</p>
       		 </div>
       		 <div class="cat-wrapper">
-     		 	<a href="javascript:void(0)"><img class="img-fluid" src="<%=request.getContextPath()%>/teamplate/public/images/category/cat-02.jpg" alt="Card image"></a>
+     		 	<a href="javascript:void(0)"><img class="img-fluid" src="<%=request.getContextPath()%>/teamplate/public/images/category/cat-02.jpeg" alt="Card image"></a>
      		 </div>
       		 <div class="cat-text cat-4">
-      		 	<h4><a href="javascript:void(0)">Women's Bags</a></h4>
+               <h4><a href="${pageContext.request.contextPath}/danh-muc/${listBrand[0].id}">${listBrand[0].name}</a></h4>
       		 	<p>Sale 20% Off</p>
       		 </div>
       	</div>
@@ -89,75 +90,16 @@
           <!-- Carousel Container -->
           <div class="slickcarousel"> 
             <!-- Item -->
-            <div class="productblock product-wrap">
-              <div class="Content"> <a href="javascript:void(0)"> <img class="img-fluid" src="<%=request.getContextPath()%>/teamplate/public/images/shop/01.jpg" alt=""> </a> <span class="new">NEW</span>
-                <div class="product-content-wrap">
-                  <div class="product-content">
-                    <div class="product-hover"> <a class="btn-cart" title="Add To Cart" href="javascript:void(0)"><i class="fas fa-shopping-cart"></i></a> <a class="btn-view" title="Quick View" href="javascript:void(0)" data-toggle="modal" data-target="#quickview"><i class="fas fa-eye"></i></a> <a class="btn-wishlist" title="Add To Wishlist" href="javascript:void(0)"><i class="fas fa-heart"></i></a> <a class="btn-wishlist" title="Add To Compare" href="compare.html"><i class="fas fa-sync-alt"></i></a> </div>
-                  </div>
+            <c:forEach items="${listProduct}" var="product">
+              <div class="productblock product-wrap">
+                <div class="Content"> <a href="javascript:void(0)">
+                  <img class="img-fluid" src="${pageContext.request.contextPath}/img/${product.imgs[0].name}" alt=""> </a> <span class="sale">-15%</span>
+                  <div class="product-title"><a href="${pageContext.request.contextPath}/san-pham/${product.id}">${product.name}</a></div>
+                  <div class="product-price"> <ins>${product.price}</ins> </div>
                 </div>
-                <div class="product-title"><a href="product-detail-fullwidth.html">Product name</a></div>
-                <div class="product-rating"> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star-half-alt"></i> <i class="far fa-star"></i></div>
-                <div class="product-price"> <ins>$12.49</ins> <del>$24.99</del> </div>
               </div>
-            </div>
-            <!-- Item --> 
+            </c:forEach>
             <!-- Item -->
-            <div class="productblock product-wrap">
-              <div class="Content"> <a href="javascript:void(0)"> <img class="img-fluid" src="<%=request.getContextPath()%>/teamplate/public/images/shop/02.jpg" alt=""> </a> <span class="sale">-15%</span>
-                <div class="product-content-wrap">
-                  <div class="product-content">
-                    <div class="product-hover"> <a class="btn-cart" title="Add To Cart" href="javascript:void(0)"><i class="fas fa-shopping-cart"></i></a> <a class="btn-view" title="Quick View" href="javascript:void(0)" data-toggle="modal" data-target="#quickview" data-keyboard="true"><i class="fas fa-eye"></i></a> <a class="btn-wishlist" title="Add To Wishlist" href="javascript:void(0)"><i class="fas fa-heart"></i></a> <a class="btn-wishlist" title="Add To Compare" href="compare.html"><i class="fas fa-sync-alt"></i></a> </div>
-                  </div>
-                </div>
-                <div class="product-title"><a href="product-detail-fullwidth.html">Product name</a></div>
-                <div class="product-rating"> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star-half-alt"></i> <i class="far fa-star"></i></div>
-                <div class="product-price"> <ins>$12.49</ins> <del>$24.99</del> </div>
-              </div>
-            </div>
-            <!-- Item --> 
-            <!-- Item -->
-            <div class="productblock product-wrap">
-              <div class="Content"> <a href="javascript:void(0)"> <img class="img-fluid" src="<%=request.getContextPath()%>/teamplate/public/images/shop/03.jpg" alt=""> </a> <span class="sale">-10%</span>
-                <div class="product-content-wrap">
-                  <div class="product-content">
-                    <div class="product-hover"> <a class="btn-cart" title="Add To Cart" href="javascript:void(0)"><i class="fas fa-shopping-cart"></i></a> <a class="btn-view" title="Quick View" href="javascript:void(0)" data-toggle="modal" data-target="#quickview" data-keyboard="true"><i class="fas fa-eye"></i></a> <a class="btn-wishlist" title="Add To Wishlist" href="javascript:void(0)"><i class="fas fa-heart"></i></a> <a class="btn-wishlist" title="Add To Compare" href="compare.html"><i class="fas fa-sync-alt"></i></a> </div>
-                  </div>
-                </div>
-                <div class="product-title"><a href="product-detail-fullwidth.html">Product name</a></div>
-                <div class="product-rating"> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star-half-alt"></i> <i class="far fa-star"></i></div>
-                <div class="product-price"> <ins>$12.49</ins> <del>$24.99</del> </div>
-              </div>
-            </div>
-            <!-- Item --> 
-            <!-- Item -->
-            <div class="productblock product-wrap">
-              <div class="Content"> <a href="javascript:void(0)"> <img class="img-fluid" src="<%=request.getContextPath()%>/teamplate/public/images/shop/04.jpg" alt=""> </a> <span class="new">NEW</span>
-                <div class="product-content-wrap">
-                  <div class="product-content">
-                    <div class="product-hover"> <a class="btn-cart" title="Add To Cart" href="javascript:void(0)"><i class="fas fa-shopping-cart"></i></a> <a class="btn-view" title="Quick View" href="javascript:void(0)" data-toggle="modal" data-target="#quickview" data-keyboard="true"><i class="fas fa-eye"></i></a> <a class="btn-wishlist" title="Add To Wishlist" href="javascript:void(0)"><i class="fas fa-heart"></i></a> <a class="btn-wishlist" title="Add To Compare" href="compare.html"><i class="fas fa-sync-alt"></i></a> </div>
-                  </div>
-                </div>
-                <div class="product-title"><a href="product-detail-fullwidth.html">Product name</a></div>
-                <div class="product-rating"> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star-half-alt"></i> <i class="far fa-star"></i></div>
-                <div class="product-price"> <ins>$12.49</ins> <del>$24.99</del> </div>
-              </div>
-            </div>
-            <!-- Item --> 
-            <!-- Item -->
-            <div class="productblock product-wrap">
-              <div class="Content"> <a href="javascript:void(0)"> <img class="img-fluid" src="<%=request.getContextPath()%>/teamplate/public/images/shop/05.jpg" alt=""> </a> <span class="new">NEW</span>
-                <div class="product-content-wrap">
-                  <div class="product-content">
-                    <div class="product-hover"> <a class="btn-cart" title="Add To Cart" href="javascript:void(0)"><i class="fas fa-shopping-cart"></i></a> <a class="btn-view" title="Quick View" href="javascript:void(0)" data-toggle="modal" data-target="#quickview" data-keyboard="true"><i class="fas fa-eye"></i></a> <a class="btn-wishlist" title="Add To Wishlist" href="javascript:void(0)"><i class="fas fa-heart"></i></a> <a class="btn-wishlist" title="Add To Compare" href="compare.html"><i class="fas fa-sync-alt"></i></a> </div>
-                  </div>
-                </div>
-                <div class="product-title"><a href="product-detail-fullwidth.html">Product name</a></div>
-                <div class="product-rating"> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star-half-alt"></i> <i class="far fa-star"></i></div>
-                <div class="product-price"> <ins>$12.49</ins> <del>$24.99</del> </div>
-              </div>
-            </div>
-            <!-- Item --> 
           </div>
           <div class="arrow-center"><span class="arrows"></span></div>
           <!-- Carousel Container --> 
@@ -169,95 +111,6 @@
   
   <!--===== Best Selling Section =====-->
   <br><br><br>
-  <section>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="col-lg-8 offset-lg-2 text-center title-line mb-50">
-            <h2 class="slick-title">Best Selling</h2>
-            <p>Lorem ipsum dolor sit amet adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magn a aliqua. Ut enim ad minim veniam quis nostrud acuad.</p>
-          </div>
-          
-          <!-- Carousel Container -->
-          <div class="slickcarousel-tab"> 
-            <!-- Item -->
-            <div class="productblock product-wrap">
-              <div class="Content"> <a href="javascript:void(0)"> <img class="img-fluid" src="<%=request.getContextPath()%>/teamplate/public/images/shop/06.jpg" alt=""> </a> <span class="new">NEW</span>
-                <div class="product-content-wrap">
-                  <div class="product-content">
-                    <div class="product-hover"> <a class="btn-cart" title="Add To Cart" href="javascript:void(0)"><i class="fas fa-shopping-cart"></i></a> <a class="btn-view" title="Quick View" href="javascript:void(0)" data-toggle="modal" data-target="#quickview" data-keyboard="true"><i class="fas fa-eye"></i></a> <a class="btn-wishlist" title="Add To Wishlist" href="javascript:void(0)"><i class="fas fa-heart"></i></a> <a class="btn-wishlist" title="Add To Compare" href="compare.html"><i class="fas fa-sync-alt"></i></a> </div>
-                  </div>
-                </div>
-                <div class="product-title"><a href="product-detail-fullwidth.html">Product name</a></div>
-                <div class="product-rating"> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star-half-alt"></i> <i class="far fa-star"></i></div>
-                <div class="product-price"> <ins>$12.49</ins> <del>$24.99</del> </div>
-              </div>
-            </div>
-            <!-- Item --> 
-            <!-- Item -->
-            <div class="productblock product-wrap">
-              <div class="Content"> <a href="javascript:void(0)"> <img class="img-fluid" src="<%=request.getContextPath()%>/teamplate/public/images/shop/07.jpg" alt=""> </a> <span class="sale">-15%</span>
-                <div class="product-content-wrap">
-                  <div class="product-content">
-                    <div class="product-hover"> <a class="btn-cart" title="Add To Cart" href="javascript:void(0)"><i class="fas fa-shopping-cart"></i></a> <a class="btn-view" title="Quick View" href="javascript:void(0)" data-toggle="modal" data-target="#quickview" data-keyboard="true"><i class="fas fa-eye"></i></a> <a class="btn-wishlist" title="Add To Wishlist" href="javascript:void(0)"><i class="fas fa-heart"></i></a> <a class="btn-wishlist" title="Add To Compare" href="compare.html"><i class="fas fa-sync-alt"></i></a> </div>
-                  </div>
-                </div>
-                <div class="product-title"><a href="product-detail-fullwidth.html">Product name</a></div>
-                <div class="product-rating"> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star-half-alt"></i> <i class="far fa-star"></i></div>
-                <div class="product-price"> <ins>$12.49</ins> <del>$24.99</del> </div>
-              </div>
-            </div>
-            <!-- Item --> 
-            <!-- Item -->
-            <div class="productblock product-wrap">
-              <div class="Content"> <a href="javascript:void(0)"> <img class="img-fluid" src="<%=request.getContextPath()%>/teamplate/public/images/shop/08.jpg" alt=""> </a> <span class="new">NEW</span>
-                <div class="product-content-wrap">
-                  <div class="product-content">
-                    <div class="product-hover"> <a class="btn-cart" title="Add To Cart" href="javascript:void(0)"><i class="fas fa-shopping-cart"></i></a> <a class="btn-view" title="Quick View" href="javascript:void(0)" data-toggle="modal" data-target="#quickview" data-keyboard="true"><i class="fas fa-eye"></i></a> <a class="btn-wishlist" title="Add To Wishlist" href="javascript:void(0)"><i class="fas fa-heart"></i></a> <a class="btn-wishlist" title="Add To Compare" href="compare.html"><i class="fas fa-sync-alt"></i></a> </div>
-                  </div>
-                </div>
-                <div class="product-title"><a href="shop-grid-left-sidebar.html">Product name</a></div>
-                <div class="product-rating"> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star-half-alt"></i> <i class="far fa-star"></i></div>
-                <div class="product-price"> <ins>$12.49</ins> <del>$24.99</del> </div>
-              </div>
-            </div>
-            <!-- Item --> 
-            <!-- Item -->
-            <div class="productblock product-wrap">
-              <div class="Content"> <a href="javascript:void(0)"> <img class="img-fluid" src="<%=request.getContextPath()%>/teamplate/public/images/shop/02.jpg" alt=""> </a> <span class="sale">-15%</span>
-                <div class="product-content-wrap">
-                  <div class="product-content">
-                    <div class="product-hover"> <a class="btn-cart" title="Add To Cart" href="javascript:void(0)"><i class="fas fa-shopping-cart"></i></a> <a class="btn-view" title="Quick View" href="javascript:void(0)" data-toggle="modal" data-target="#quickview" data-keyboard="true"><i class="fas fa-eye"></i></a> <a class="btn-wishlist" title="Add To Wishlist" href="javascript:void(0)"><i class="fas fa-heart"></i></a> <a class="btn-wishlist" title="Add To Compare" href="compare.html"><i class="fas fa-sync-alt"></i></a> </div>
-                  </div>
-                </div>
-                <div class="product-title"><a href="shop-grid-left-sidebar.html">Product name</a></div>
-                <div class="product-rating"> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star-half-alt"></i> <i class="far fa-star"></i></div>
-                <div class="product-price"> <ins>$12.49</ins> <del>$24.99</del> </div>
-              </div>
-            </div>
-            <!-- Item --> 
-            <!-- Item -->
-            <div class="productblock product-wrap">
-              <div class="Content"> <a href="javascript:void(0)"> <img class="img-fluid" src="<%=request.getContextPath()%>/teamplate/public/images/shop/05.jpg" alt=""> </a> <span class="new">NEW</span>
-                <div class="product-content-wrap">
-                  <div class="product-content">
-                    <div class="product-hover"> <a class="btn-cart" title="Add To Cart" href="javascript:void(0)"><i class="fas fa-shopping-cart"></i></a> <a class="btn-view" title="Quick View" href="javascript:void(0)" data-toggle="modal" data-target="#quickview" data-keyboard="true"><i class="fas fa-eye"></i></a> <a class="btn-wishlist" title="Add To Wishlist" href="javascript:void(0)"><i class="fas fa-heart"></i></a> <a class="btn-wishlist" title="Add To Compare" href="compare.html"><i class="fas fa-sync-alt"></i></a> </div>
-                  </div>
-                </div>
-                <div class="product-title"><a href="product-detail-fullwidth.html">Product name</a></div>
-                <div class="product-rating"> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star-half-alt"></i> <i class="far fa-star"></i></div>
-                <div class="product-price"> <ins>$12.49</ins> <del>$24.99</del> </div>
-              </div>
-            </div>
-            <!-- Item --> 
-          </div>
-          <div class="arrow-center"><span class="arrows-tab"></span></div>
-          
-          <!-- Carousel Container --> 
-        </div>
-      </div>
-    </div>
-  </section>
   <!--=====End Best Selling Section =====--> 
   
   <!--===== Our Service Section =====-->

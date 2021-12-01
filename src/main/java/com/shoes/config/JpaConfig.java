@@ -1,7 +1,9 @@
 package com.shoes.config;
 
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalEntityManagerFactoryBean;
@@ -40,5 +42,13 @@ public class JpaConfig {
 // 		properties.setProperty("hibernate.hbm2ddl.auto", "none");
         properties.setProperty("hibernate.enable_lazy_load_no_trans", "true");
         return properties;
+    }
+
+    @Bean(name = "messageSource") // get messages
+    public MessageSource messageSource() {
+        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+        messageSource.setBasenames("messages/validate");
+        messageSource.setDefaultEncoding("UTF-8");
+        return messageSource;
     }
 }

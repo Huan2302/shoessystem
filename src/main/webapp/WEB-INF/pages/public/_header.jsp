@@ -56,7 +56,7 @@
                         <div class="col-lg-12 col-md-12">
                             <!-- menu logo -->
                             <ul class="menu-logo">
-                                <li> <a href="index.jsp"><img id="logo_img" src="<%=request.getContextPath()%>/teamplate/public/images/logo.png" alt="logo"> </a> </li>
+                                <li> <a href="${pageContext.request.contextPath}/trang-chu"><img id="logo_img" src="<%=request.getContextPath()%>/teamplate/public/images/logo.png" alt="logo"> </a> </li>
                             </ul>
                             <!-- menu links -->
                             <div class="menu-bar">
@@ -79,32 +79,31 @@
                                             </c:forEach>
                                         </ul>
                                     </li>
-                                    <li><a class="cart-border" href="contact.html" data-hover="Liên&nbsp;hệ">Liên&nbsp;hệ</a></li>
+<%--                                    <li><a class="cart-border" href="contact.html" data-hover="Liên&nbsp;hệ">Liên&nbsp;hệ</a></li>--%>
                                 </ul>
 
                                 <!-- Shopping cart -->
                                 <div class="search-cart">
                                     <div class="search"> <a class="search-btn" href="#search"></a> </div>
-                                    <div class="shpping-cart"> <a class="cart-btn txt-white" href="cart.html"> <i class="fa fa-shopping-cart icon"></i> <strong class="item">2</strong></a>
+                                    <div class="shpping-cart"> <a class="cart-btn txt-white" href="${pageContext.request.contextPath}/gio-hang"><i class="fa fa-shopping-cart icon"></i><strong class="item">${listCart.size()}</strong></a>
                                         <div class="cart">
                                             <c:choose>
                                                 <c:when test="${not empty listCart}">
                                                     <c:forEach items="${listCart}" var="cart">
                                                         <div class="cart-item">
                                                             <div class="cart-image"> <img class="img-fluid" src="${pageContext.request.contextPath}/img/${cart.product.imgs[0].name}" alt=""> </div>
-                                                            <div class="cart-name clearfix"> <a href="product-detail-fullwidth.html">${cart.product.name} </a>
+                                                            <div class="cart-name clearfix"> <a href="${pageContext.request.contextPath}/san-pham/${cart.product.id}">${cart.product.name} </a>
                                                                 <div class="cart-name"></div>
                                                                 <div class="cart-name"><small>x ${cart.quantity}</small></div>
                                                                 <div class="cart-price"> <ins>${cart.unitPrice} đ </ins> </div>
                                                             </div>
-                                                            <div class="cart-close"> <a href="javascript:void(0)"> <i class="fa fa-times-circle"></i> </a> </div>
                                                         </div>
+<%--                                                        <div class="cart-close"> <a href="javascript:void(0)"> <i class="fa fa-times-circle"></i> </a> </div>--%>
                                                     </c:forEach>
 
                                                     <div class="cart-total">
-                                                        <h6 class="mb-15"> Subtotal: $104.00</h6>
-                                                        <div class="d-flex justify-content-center mb-10"> <a class="btn theme-button" href="cart.html">View Your Cart</a> </div>
-                                                        <div class="d-flex justify-content-center"> <a class="btn black-button" href="checkout.html">Proceed Checkout</a> </div>
+                                                        <h6 class="mb-15"> Tổng tiền: ${oder.total} đ</h6>
+                                                        <div class="d-flex justify-content-center mb-10"> <a class="btn theme-button" href="${pageContext.request.contextPath}/gio-hang">Xem giỏ hàng</a> </div>
                                                     </div>
                                                 </c:when>
                                                 <c:otherwise>
@@ -132,6 +131,9 @@
                                                         <li><a href="${pageContext.request.contextPath}/dang-ky">Đăng&nbsp;ký</a></li>
                                                     </c:when>
                                                     <c:otherwise>
+                                                        <c:if test="${user.userType == 0}">
+                                                            <li><a href="${pageContext.request.contextPath}/manager/category">Admin</a></li>
+                                                        </c:if>
                                                         <li><a href="${pageContext.request.contextPath}/dang-xuat">Đăng&nbsp;xuất</a></li>
                                                     </c:otherwise>
                                                 </c:choose>

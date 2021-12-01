@@ -52,7 +52,7 @@ public class LoginController {
         }
 
         if (user.getUserType() == 0) {
-            return "redirect:/manager/category";
+            return "redirect:/trang-chu";
         } else if (user.getUserType() == 1) {
             return "redirect:/trang-chu";
         }

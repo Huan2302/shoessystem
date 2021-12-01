@@ -65,11 +65,15 @@
                         <s:hidden path="id" class="form-control" />
                         <!-- input text code-->
                         <div class="table-responsive">
+
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="">Name</span>
                                 </div>
                                 <s:input path="name" class="form-control" />
+                            </div>
+                            <div class="input-group mb-3">
+                                <s:errors path="name" class="text-danger"></s:errors>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>

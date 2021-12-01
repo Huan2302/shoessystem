@@ -21,4 +21,8 @@ public class Product_imgService {
     public List<Product_img> getAllByProductId(long id) {
         return (List<Product_img>) repo.getAllByProductId(id);
     }
+
+    public void deleteProduct_imgByProductId(Long id) {
+        repo.deleteProduct_imgByProductId(id);
+    }
 }

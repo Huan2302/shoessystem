@@ -38,4 +38,16 @@ public class OderService {
     public Oder findOderByUser(User user){
         return repo.findOderByUser(user);
     }
+
+    public void editTotal(float total,long id){
+        repo.editTotal(total,id);
+    }
+
+    public void pay(long id){
+        repo.pay(id);
+    }
+
+    public void handle(long id){
+        repo.handle(id);
+    }
 }

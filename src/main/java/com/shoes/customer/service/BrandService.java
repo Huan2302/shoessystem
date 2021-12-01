@@ -2,6 +2,7 @@ package com.shoes.customer.service;
 
 import com.shoes.customer.entity.Brand;
 import com.shoes.customer.entity.Category;
+import com.shoes.customer.entity.Product;
 import com.shoes.customer.repository.BrandReponsitory;
 import com.shoes.customer.repository.CategoryReponsitory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,4 +30,5 @@ public class BrandService {
     public void delete(Long id) {
         repo.deleteById(id);
     }
+
 }

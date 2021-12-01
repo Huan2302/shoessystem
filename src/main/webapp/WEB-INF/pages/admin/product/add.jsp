@@ -71,6 +71,9 @@
                                 </div>
                                 <s:input path="name" class="form-control" />
                             </div>
+                            <div class="input-group mb-3">
+                                <s:errors path="name" class="text-danger"></s:errors>
+                            </div>
                         </div>
                         <div class="table-responsive">
                             <div class="input-group mb-3">
@@ -79,6 +82,7 @@
                                 </div>
                                 <s:input path="price" class="form-control" />
                             </div>
+
                         </div>
                         <div class="table-responsive">
                             <div class="input-group mb-3">
@@ -87,6 +91,9 @@
                                 </div>
                                 <s:textarea path="description" class="form-control"/>
                             </div>
+                            <div class="input-group mb-3">
+                                <s:errors path="description" class="text-danger"></s:errors>
+                            </div>
                         </div>
                         <div class="table-responsive mt-3">
                             <div class="input-group mb-3">
@@ -94,6 +101,9 @@
                                     <span class="input-group-text" id="">Size</span>
                                 </div>
                                 <s:input path="size" class="form-control"/>
+                            </div>
+                            <div class="input-group mb-3">
+                                <s:errors path="size" class="text-danger"></s:errors>
                             </div>
                         </div>
                         <div class="table-responsive mt-3">

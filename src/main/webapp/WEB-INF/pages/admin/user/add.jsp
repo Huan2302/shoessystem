@@ -70,6 +70,10 @@
                                     <span class="input-group-text" id="">Email</span>
                                 </div>
                                 <s:input path="email" class="form-control" />
+
+                            </div>
+                            <div class="input-group mb-3">
+                                <s:errors path="email" class="text-danger"></s:errors>
                             </div>
                         </div>
                         <div class="table-responsive">
@@ -78,6 +82,17 @@
                                     <span class="input-group-text" id="">Password</span>
                                 </div>
                                 <input type="password" name="password" class="form-control">
+
+                            </div>
+                            <div class="input-group mb-3">
+                                <c:if test="${not empty err_pass}">
+                                    <div>
+                                        <p class="text-danger">
+                                            <span class="text">${err_pass}</span>
+                                        </p>
+                                    </div>
+                                </c:if>
+                                <s:errors path="password" class="text-danger"></s:errors>
                             </div>
                         </div>
                         <div class="table-responsive">
@@ -87,6 +102,10 @@
                                 </div>
                                 <s:input path="phoneNumber" class="form-control" />
                             </div>
+                            <div class="input-group mb-3">
+                                <s:errors path="phoneNumber" class="text-danger"></s:errors>
+
+                            </div>
                         </div>
                         <div class="table-responsive">
                             <div class="input-group mb-3">
@@ -94,6 +113,10 @@
                                     <span class="input-group-text" id="">Fullname</span>
                                 </div>
                                 <s:input path="userName" class="form-control" />
+
+                            </div>
+                            <div class="input-group mb-3">
+                                <s:errors path="userName" class="text-danger"></s:errors>
                             </div>
                         </div>
                         <div class="table-responsive">
@@ -102,6 +125,7 @@
                                     <span class="input-group-text" id="">userType</span>
                                 </div>
                                 <s:input path="userType" class="form-control" />
+<%--                                <s:errors path="userType" class="text-danger"></s:errors>--%>
                             </div>
                         </div>
                         <div class="table-responsive">
@@ -110,6 +134,10 @@
                                     <span class="input-group-text" id="">address</span>
                                 </div>
                                 <s:input path="address" class="form-control" />
+
+                            </div>
+                            <div class="input-group mb-3">
+                                <s:errors path="address" class="text-danger"></s:errors>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>

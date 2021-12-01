@@ -1,6 +1,9 @@
 package com.shoes.customer.entity;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +12,7 @@ public class Brand {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotEmpty(message = "Vui lòng nhập tên thương hiệu")
     private String name;
 
     @OneToMany(mappedBy = "brand", cascade = CascadeType.MERGE)

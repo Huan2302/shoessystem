@@ -1,7 +1,7 @@
 package com.shoes.customer.entity;
 
 import javax.persistence.*;
-import java.io.Serializable;
+import javax.validation.constraints.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,11 +11,18 @@ public class User{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotEmpty(message = "Vui lòng nhập tên")
     private String userName;
+
     private String password;
+    @NotEmpty(message = "Không để trống Email")
+    @Email(message = "Nhập đúng định dạng mail")
     private String email;
+    @NotEmpty(message = "Không để trống số điện thoại")
     private String phoneNumber;
+    @NotEmpty(message = "Không để trống địa chỉ")
     private String address;
+
     private int userType;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE)
@@ -37,6 +44,7 @@ public class User{
         this.userName = userName;
     }
 
+    @Size(min = 6,max = 15, message = "vui lòng nhập từ 6-15 kí tự")
     public String getPassword() {
         return password;
     }

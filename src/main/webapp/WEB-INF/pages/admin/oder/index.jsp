@@ -57,19 +57,18 @@
             <!-- Begin Page Content -->
             <div class="container-fluid">
 
-                <div>
-                    <a href="${pageContext.request.contextPath}/manager/user/new" class="btn btn-primary btn-icon-split">
-                            <span class="icon text-white-50">
-                                <i class="fas fa-flag"></i>
-                            </span>
-                        <span class="text">Thêm tài khoản</span>
-                    </a>
-                </div>
                 <br>
                 <c:if test="${not empty msg}">
                     <div>
                         <p class="text-success">
                             <span class="text">${msg}</span>
+                        </p>
+                    </div>
+                </c:if>
+                <c:if test="${not empty msg_err}">
+                    <div>
+                        <p class="text-danger">
+                            <span class="text">${msg_err}</span>
                         </p>
                     </div>
                 </c:if>
@@ -84,42 +83,44 @@
                                 <thead>
                                 <tr>
                                     <th>Id</th>
-                                    <th>Email</th>
-                                    <th>Mật khẩu</th>
-                                    <th>Số điện thoại</th>
-                                    <th>Tên</th>
-                                    <th>Phân Quyền</th>
-                                    <th>Địa chỉ</th>
-                                    <th>Sửa</th>
-                                    <th>Xóa</th>
+                                    <th>Ngày Đặt đơn</th>
+                                    <th>Trạng thái</th>
+                                    <th>Tổng tiền</th>
+                                    <th>Người đặt đơn</th>
+                                    <th>Xử lý</th>
                                 </tr>
                                 </thead>
                                 <tfoot>
                                 <tr>
                                     <th>Id</th>
-                                    <th>Email</th>
-                                    <th>Mật khẩu</th>
-                                    <th>Số điện thoại</th>
-                                    <th>Tên</th>
-                                    <th>Phân Quyền</th>
-                                    <th>Địa chỉ</th>
-                                    <th>Sửa</th>
-                                    <th>Xóa</th>
+                                    <th>Ngày Đặt đơn</th>
+                                    <th>Trạng thái</th>
+                                    <th>Tổng tiền</th>
+                                    <th>Người đặt đơn</th>
+                                    <th>Xử lý</th>
                                 </tr>
                                 </tfoot>
                                 <tbody>
-                                    <c:forEach items="${listUser}" var="user">
+                                    <c:forEach items="${listOder}" var="oder">
                                     <tr>
-                                            <td>${user.id}</td>
-                                            <td>${user.email}</td>
-                                            <td>${user.password}</td>
-                                            <td>${user.phoneNumber}</td>
-                                            <td>${user.userName}</td>
-                                            <td>${user.userType}</td>
-                                            <td>${user.address}</td>
-                                            <td><a class="btn btn-success" href="${pageContext.request.contextPath}/manager/user/edit?id=${user.id}">Edit</a></td>
+                                            <td>${oder.id}</td>
+                                            <td>${oder.oderDate}</td>
+                                            <td>${oder.status}</td>
+                                            <td>${oder.total} đ</td>
+                                            <td>${oder.user.userName}</td>
                                             <td>
-                                                <a class="btn btn-danger" href="${pageContext.request.contextPath}/manager/user/delete?id=${user.id}">Delete</a>
+                                                <c:choose>
+                                                    <c:when test="${oder.status == 1}">
+                                                        <a class="btn btn-success" href="${pageContext.request.contextPath}/manager/oder/handle?id=${oder.id}">Gửi hàng</a>
+                                                    </c:when>
+                                                    <c:when test="${oder.status == 0}">
+                                                        <a class="btn btn-warning" href="${pageContext.request.contextPath}/manager/oder/handle?id=${oder.id}">Gửi hàng</a>
+                                                    </c:when>
+                                                    <c:otherwise>
+
+                                                    </c:otherwise>
+                                                </c:choose>
+
                                             </td>
                                     </tr>
                                     </c:forEach>
@@ -177,7 +178,7 @@
 </div>
 
 <script>
-    document.getElementById("userActive").classList.add('active');
+    document.getElementById("oderActive").classList.add('active');
 </script>
 
 <!-- Bootstrap core JavaScript-->
