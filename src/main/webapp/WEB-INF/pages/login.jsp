@@ -44,6 +44,9 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
+                                    <c:if test="${not empty error}">
+                                        <p class="text-danger">${error}</p>
+                                    </c:if>
                                     <form class="user" method="post" action="${pageContext.request.contextPath}/dang-nhap">
                                         <div class="form-group">
                                             <input type="email" name="email" class="form-control form-control-user"
