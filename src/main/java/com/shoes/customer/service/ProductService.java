@@ -35,4 +35,35 @@ public class ProductService {
     public List<Product> getProductByBrandId(long id){
         return repo.getProductByBrandId(id);
     }
+
+    public List<Product> search(String search){
+        return (List<Product>) repo.search(search);
+    }
+
+    public List<Product> sortCatNameASC(long id){
+        return repo.sortCatNameASC(id);
+    }
+    public List<Product> sortCatNameDESC(long id){
+        return repo.sortCatNameDESC(id);
+    }
+    public List<Product> sortCatPriceASC(long id){
+        return repo.sortCatPriceASC(id);
+    }
+    public List<Product> sortCatPriceDESC(long id){
+        return repo.sortCatPriceDESC(id);
+    }
+
+    public List<Product> sortBrandNameASC(long id){
+        return repo.sortBrandNameASC(id);
+    }
+    public List<Product> sortBrandNameDESC(long id){
+        return repo.sortBrandNameDESC(id);
+    }
+    public List<Product> sortBrandPriceASC(long id){
+        return repo.sortBrandPriceASC(id);
+    }
+    public List<Product> sortBrandPriceDESC(long id){
+        return repo.sortBrandPriceDESC(id);
+    }
+
 }

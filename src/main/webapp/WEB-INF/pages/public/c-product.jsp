@@ -29,42 +29,56 @@
         <div class="col-lg-12 col-md-12"> 
           <!-- Start Product List top-->
           <div class="product-widget mb-3">
-            <div class="row ">
-              <div class="col-lg-3 col-7">
-                <select name="selectvalue" class="custom-select">
-                  <option selected="">Popularity</option>
-                  <option value="new">New</option>
-                  <option value="low">Price Low - High</option>
-                  <option value="high">Price High - Low</option>
-                </select>
+            <form action="">
+              <div class="row ">
+                <div class="col-lg-3 col-7">
+                  <select name="sort" class="custom-select">
+                    <option value="az">Tên A->Z</option>
+                    <option value="za">Tên Z->A</option>
+                    <option value="low">Giá thấp đến cao</option>
+                    <option value="high">Giá cao đến thấp</option>
+                  </select>
+                </div>
+                <div class="col-lg-3 col-5">
+                  <button class="btn theme-button pt-2 pb-2" type="submit">Xắp sếp</button>
+                </div>
               </div>
-            </div>
+            </form>
           </div>
           <!-- End Product List top--> 
           
           <!-- Start Product List-->
-          <c:if test="${not empty listById}">
-            <c:forEach items="${listById}" var="item">
-              <div class="row">
-                <div class="col-lg-3 col-md-4">
-                  <div class="productblock product-list-wrap product-list">
-                    <div class="Content"> <a href="javascript:void(0)"> <img class="img-fluid" src="${pageContext.request.contextPath}/img/${item.imgs[0].name}" alt=""> </a>
-
+          <c:choose>
+            <c:when test="${not empty listById}">
+              <c:forEach items="${listById}" var="item">
+                <div class="row">
+                  <div class="col-lg-3 col-md-4">
+                    <div class="productblock product-list-wrap product-list">
+                      <div class="Content"> <a href="javascript:void(0)"> <img class="img-fluid" src="${pageContext.request.contextPath}/img/${item.imgs[0].name}" alt=""> </a>
+                      </div>
                     </div>
                   </div>
+                  <div class="col-lg-9 col-md-8">
+                    <div class="product-list-view xs-mb-20">
+                      <h5><a href="javascript:void(0)">${item.category.name}</a></h5>
+                      <h4><a href="${pageContext.request.contextPath}/san-pham/${item.id}">${item.name}</a></h4>
+                        <%--                    <div class="product-rating"> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star-half-alt"></i> <i class="far fa-star"></i></div>--%>
+                      <div class="product-price"> <ins>${item.price} đ</ins> </div>
+                      <p class="d-md-none d-lg-block">${item.description}</p>
+                      <a class="btn theme-button animated slideInRight" href="${pageContext.request.contextPath}/add-cart?id=${item.id}&quantity=1"><i class="fas fa-shopping-cart"></i> Thêm vào giỏ hàng </a> </div>
+                  </div>
                 </div>
-                <div class="col-lg-9 col-md-8">
-                  <div class="product-list-view xs-mb-20">
-                    <h5><a href="javascript:void(0)">${item.category.name}</a></h5>
-                    <h4><a href="${pageContext.request.contextPath}/san-pham/${item.id}">${item.name}</a></h4>
-<%--                    <div class="product-rating"> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star-half-alt"></i> <i class="far fa-star"></i></div>--%>
-                    <div class="product-price"> <ins>${item.price} đ</ins> </div>
-                    <p class="d-md-none d-lg-block">${item.description}</p>
-                    <a class="btn theme-button animated slideInRight" href="${pageContext.request.contextPath}/add-cart?id=${item.id}&quantity=1"><i class="fas fa-shopping-cart"></i> Thêm vào giỏ hàng </a> </div>
+              </c:forEach>
+            </c:when>
+            <c:otherwise>
+              <div class="row">
+                <div class="col-lg-6 col-md-6">
+                  <h4>Không có sản phẩm nào</h4>
                 </div>
               </div>
-            </c:forEach>
-          </c:if>
+            </c:otherwise>
+          </c:choose>
+
 
 
 

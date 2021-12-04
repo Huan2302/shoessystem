@@ -85,7 +85,15 @@
                                 <!-- Shopping cart -->
                                 <div class="search-cart">
                                     <div class="search"> <a class="search-btn" href="#search"></a> </div>
-                                    <div class="shpping-cart"> <a class="cart-btn txt-white" href="${pageContext.request.contextPath}/gio-hang"><i class="fa fa-shopping-cart icon"></i><strong class="item">${listCart.size()}</strong></a>
+                                    <c:choose>
+                                        <c:when test="${not empty listCart}">
+                                            <div class="shpping-cart"> <a class="cart-btn txt-white" href="${pageContext.request.contextPath}/gio-hang"><i class="fa fa-shopping-cart icon"></i><strong class="item">${listCart.size()}</strong></a>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <div class="shpping-cart"> <a class="cart-btn txt-white" href="${pageContext.request.contextPath}/gio-hang"><i class="fa fa-shopping-cart icon"></i><strong class="item">0</strong></a>
+                                        </c:otherwise>
+                                    </c:choose>
+
                                         <div class="cart">
                                             <c:choose>
                                                 <c:when test="${not empty listCart}">
@@ -117,8 +125,8 @@
                                     </div>
                                     <div id="search">
                                         <button type="button" class="close">×</button>
-                                        <form>
-                                            <input type="search" placeholder="Search for products">
+                                        <form action="${pageContext.request.contextPath}/tim-kiem" method="post">
+                                            <input type="search" name="search" placeholder="Search for products">
                                             <button type="submit" class="btn btn-primary"><span class="ti-search"></span></button>
                                         </form>
                                     </div>
@@ -134,6 +142,10 @@
                                                         <c:if test="${user.userType == 0}">
                                                             <li><a href="${pageContext.request.contextPath}/manager/category">Admin</a></li>
                                                         </c:if>
+                                                        <c:if test="${user.userType == 1}">
+
+                                                        </c:if>
+                                                        <li><a href="${pageContext.request.contextPath}/thong-tin">Đổi mật khẩu</a></li>
                                                         <li><a href="${pageContext.request.contextPath}/dang-xuat">Đăng&nbsp;xuất</a></li>
                                                     </c:otherwise>
                                                 </c:choose>

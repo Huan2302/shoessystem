@@ -33,4 +33,12 @@ public class UserService {
     public User login(String email, String password) {
         return repo.login(email, password);
     }
+
+    public void register(String email,String pass,String name) {
+        repo.register(email,pass,name);
+    }
+
+    public void editPass(String pass,long id) {
+        repo.editPasss(pass,id);
+    }
 }

@@ -33,7 +33,11 @@
 
     <!-- Custom styles for this page -->
     <link href="<%=request.getContextPath()%>/teamplate/admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-
+    <style>
+        .gallery img{
+            width: 300px;
+        }
+    </style>
 </head>
 
 <body id="page-top">
@@ -57,7 +61,8 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
-                <div class="col-md-7 col-lg-8">
+                <div class="row">
+                    <div class="col-md-7 col-lg-8">
                     <h4 class="mb-3">Thêm danh mục</h4>
 
                     <s:form method="POST"  modelAttribute="product" action="${pageContext.request.contextPath}/manager/product/edit" enctype="multipart/form-data">
@@ -111,7 +116,7 @@
                             </div>
                             <div class="custom-file">
                                 <!-- id="inputGroupFile01 -->
-                                <input type="file" multiple="multiple" name="file" class="custom-file-input"/>
+                                <input type="file" id="gallery-photo-add" multiple="multiple" name="file" class="custom-file-input"/>
                                 <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
                             </div>
                         </div>
@@ -143,6 +148,17 @@
 
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </s:form>
+                </div>
+                    <div class="col-5 col-md-5 col-lg-4">
+                        <div class="gallery">
+                            <c:if test="${not empty listImg}">
+                                <c:forEach items="${listImg}" var="img">
+                                    <img src="${pageContext.request.contextPath}/img/${img.name}" alt="">
+                                </c:forEach>
+                            </c:if>
+
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- /.container-fluid -->
@@ -207,7 +223,34 @@
 
 <!-- Page level custom scripts -->
 <script src="<%=request.getContextPath()%>/teamplate/admin/js/demo/datatables-demo.js"></script>
+<script type="text/javascript">
+    $(function() {
 
+        // Multiple images preview in browser
+        var imagesPreview = function(input, placeToInsertImagePreview) {
+
+            if (input.files) {
+                var filesAmount = input.files.length;
+
+                for (i = 0; i < filesAmount; i++) {
+                    var reader = new FileReader();
+
+                    reader.onload = function(event) {
+                        $($.parseHTML('<img>')).attr('src', event.target.result).appendTo(placeToInsertImagePreview);
+                    }
+
+                    reader.readAsDataURL(input.files[i]);
+                }
+                jQuery('.gallery').html('');
+            }
+
+        };
+
+        $('#gallery-photo-add').on('change', function() {
+            imagesPreview(this, 'div.gallery');
+        });
+    });
+</script>
 </body>
 
 </html>

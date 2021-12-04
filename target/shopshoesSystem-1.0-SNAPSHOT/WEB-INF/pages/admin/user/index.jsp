@@ -85,12 +85,10 @@
                                 <tr>
                                     <th>Id</th>
                                     <th>Email</th>
-                                    <th>Mật khẩu</th>
                                     <th>Số điện thoại</th>
                                     <th>Tên</th>
                                     <th>Phân Quyền</th>
                                     <th>Địa chỉ</th>
-                                    <th>Sửa</th>
                                     <th>Xóa</th>
                                 </tr>
                                 </thead>
@@ -98,12 +96,10 @@
                                 <tr>
                                     <th>Id</th>
                                     <th>Email</th>
-                                    <th>Mật khẩu</th>
                                     <th>Số điện thoại</th>
                                     <th>Tên</th>
                                     <th>Phân Quyền</th>
                                     <th>Địa chỉ</th>
-                                    <th>Sửa</th>
                                     <th>Xóa</th>
                                 </tr>
                                 </tfoot>
@@ -112,12 +108,19 @@
                                     <tr>
                                             <td>${user.id}</td>
                                             <td>${user.email}</td>
-                                            <td>${user.password}</td>
                                             <td>${user.phoneNumber}</td>
                                             <td>${user.userName}</td>
-                                            <td>${user.userType}</td>
+                                            <td>
+                                                <c:choose>
+                                                    <c:when test="${user.userType == 0}">
+                                                        Admin
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        Customer
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </td>
                                             <td>${user.address}</td>
-                                            <td><a class="btn btn-success" href="${pageContext.request.contextPath}/manager/user/edit?id=${user.id}">Edit</a></td>
                                             <td>
                                                 <a class="btn btn-danger" href="${pageContext.request.contextPath}/manager/user/delete?id=${user.id}">Delete</a>
                                             </td>

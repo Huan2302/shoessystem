@@ -40,7 +40,7 @@ public class LoginController {
     public String login(HttpSession session, ModelMap model, @RequestParam("email") String email,
                         @RequestParam("password") String password) {
         if (email.equals("") || password.equals("")) {
-            return "redirect:/dang-nhap?error=true";
+            return "redirect:/dang-ky?error=true";
         }
 
         User user = new User();
@@ -65,19 +65,5 @@ public class LoginController {
                          @RequestParam(value = "error", required = false) String error) {
         session.removeAttribute("user");
         return "redirect:/trang-chu";
-    }
-
-    @RequestMapping(value = "/dang-ky", method = RequestMethod.GET)
-    public String register(HttpSession session, ModelMap model,
-                        @RequestParam(value = "error", required = false) String error) {
-        session.setAttribute("user", null);
-        try {
-            if (error.equals("true")) {
-                model.put("error", "Tên đăng nhập hoặc mật khẩu không đúng !!");
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        return "login";
     }
 }

@@ -33,7 +33,11 @@
 
     <!-- Custom styles for this page -->
     <link href="<%=request.getContextPath()%>/teamplate/admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-
+    <style>
+        .gallery img{
+            width: 300px;
+        }
+    </style>
 </head>
 
 <body id="page-top">
@@ -57,102 +61,108 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
-                <div class="col-md-7 col-lg-8">
-                    <h4 class="mb-3">Thêm danh mục</h4>
+                <div class="row">
+                    <div class="col-7 col-md-7 col-lg-8">
+                        <h4 class="mb-3">Thêm danh mục</h4>
 
-                    <s:form method="POST"  modelAttribute="product" action="${pageContext.request.contextPath}/manager/product/new" enctype="multipart/form-data">
-                        <!-- input text code -->
-                        <s:hidden path="id" class="form-control" />
-                        <!-- input text code-->
-                        <div class="table-responsive">
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="">Name</span>
+                        <s:form method="POST"  modelAttribute="product" action="${pageContext.request.contextPath}/manager/product/new" enctype="multipart/form-data">
+                            <!-- input text code -->
+                            <s:hidden path="id" class="form-control" />
+                            <!-- input text code-->
+                            <div class="table-responsive">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="">Name</span>
+                                    </div>
+                                    <s:input path="name" class="form-control" />
                                 </div>
-                                <s:input path="name" class="form-control" />
-                            </div>
-                            <div class="input-group mb-3">
-                                <s:errors path="name" class="text-danger"></s:errors>
-                            </div>
-                        </div>
-                        <div class="table-responsive">
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="">Price</span>
+                                <div class="input-group mb-3">
+                                    <s:errors path="name" class="text-danger"></s:errors>
                                 </div>
-                                <s:input path="price" class="form-control" />
+                            </div>
+                            <div class="table-responsive">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="">Price</span>
+                                    </div>
+                                    <s:input path="price" class="form-control" />
+                                </div>
+
+                            </div>
+                            <div class="table-responsive">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="">Description</span>
+                                    </div>
+                                    <s:textarea path="description" class="form-control"/>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <s:errors path="description" class="text-danger"></s:errors>
+                                </div>
+                            </div>
+                            <div class="table-responsive mt-3">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="">Size</span>
+                                    </div>
+                                    <s:input path="size" class="form-control"/>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <s:errors path="size" class="text-danger"></s:errors>
+                                </div>
+                            </div>
+                            <div class="table-responsive mt-3">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="">Stock</span>
+                                    </div>
+                                    <s:input path="stock" class="form-control"/>
+                                </div>
                             </div>
 
-                        </div>
-                        <div class="table-responsive">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text" id="">Description</span>
+                                    <span class="input-group-text">Photo</span>
                                 </div>
-                                <s:textarea path="description" class="form-control"/>
-                            </div>
-                            <div class="input-group mb-3">
-                                <s:errors path="description" class="text-danger"></s:errors>
-                            </div>
-                        </div>
-                        <div class="table-responsive mt-3">
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="">Size</span>
+                                <div class="custom-file">
+                                    <!-- id="inputGroupFile01 -->
+                                    <input type="file" id="gallery-photo-add" name="file" multiple="multiple" class="custom-file-input"/>
+                                    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
                                 </div>
-                                <s:input path="size" class="form-control"/>
                             </div>
-                            <div class="input-group mb-3">
-                                <s:errors path="size" class="text-danger"></s:errors>
-                            </div>
-                        </div>
-                        <div class="table-responsive mt-3">
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="">Stock</span>
-                                </div>
-                                <s:input path="stock" class="form-control"/>
-                            </div>
-                        </div>
 
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Photo</span>
-                            </div>
-                            <div class="custom-file">
-                                <!-- id="inputGroupFile01 -->
-                                <input type="file" name="file" multiple="multiple" class="custom-file-input"/>
-                                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-                            </div>
-                        </div>
-
-                        <div class="table-responsive">
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="">Category</span>
+                            <div class="table-responsive">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="">Category</span>
+                                    </div>
+                                    <s:select path="category.id" class="custom-select" id="inputGroupSelect01">
+                                        <c:forEach items="${listCategory}" var="category">
+                                            <s:option value="${category.id}">${category.name}</s:option>
+                                        </c:forEach>
+                                    </s:select>
                                 </div>
-                                <s:select path="category.id" class="custom-select" id="inputGroupSelect01">
-                                    <c:forEach items="${listCategory}" var="category">
-                                        <s:option value="${category.id}">${category.name}</s:option>
-                                    </c:forEach>
-                                </s:select>
                             </div>
-                        </div>
-                        <div class="table-responsive">
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="">Brand</span>
+                            <div class="table-responsive">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="">Brand</span>
+                                    </div>
+                                    <s:select path="brand.id" class="custom-select" id="inputGroupSelect01">
+                                        <c:forEach items="${listBrand}" var="brand">
+                                            <s:option value="${brand.id}">${brand.name}</s:option>
+                                        </c:forEach>
+                                    </s:select>
                                 </div>
-                                <s:select path="brand.id" class="custom-select" id="inputGroupSelect01">
-                                    <c:forEach items="${listBrand}" var="brand">
-                                        <s:option value="${brand.id}">${brand.name}</s:option>
-                                    </c:forEach>
-                                </s:select>
                             </div>
-                        </div>
 
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </s:form>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </s:form>
+                    </div>
+                    <div class="col-5 col-md-5 col-lg-4">
+                        <div class="gallery">
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- /.container-fluid -->
@@ -217,6 +227,34 @@
 
 <!-- Page level custom scripts -->
 <script src="<%=request.getContextPath()%>/teamplate/admin/js/demo/datatables-demo.js"></script>
+<script type="text/javascript">
+    $(function() {
+
+        // Multiple images preview in browser
+        var imagesPreview = function(input, placeToInsertImagePreview) {
+
+            if (input.files) {
+                var filesAmount = input.files.length;
+
+                for (i = 0; i < filesAmount; i++) {
+                    var reader = new FileReader();
+
+                    reader.onload = function(event) {
+                        $($.parseHTML('<img>')).attr('src', event.target.result).appendTo(placeToInsertImagePreview);
+                    }
+
+                    reader.readAsDataURL(input.files[i]);
+                }
+                jQuery('.gallery').html('');
+            }
+
+        };
+
+        $('#gallery-photo-add').on('change', function() {
+            imagesPreview(this, 'div.gallery');
+        });
+    });
+</script>
 
 </body>
 

@@ -153,6 +153,8 @@ public class ProductController {
             Product product = productService.get(id);
             List<Category> listCategory = categoryService.listAll();
             List<Brand> listBrand = brandService.listAll();
+            List<Product_img> listImg = productImgService.getAllByProductId(product.getId());
+            mav.addObject("listImg",listImg);
             mav.addObject("listCategory", listCategory);
             mav.addObject("listBrand", listBrand);
             mav.addObject("product", product);

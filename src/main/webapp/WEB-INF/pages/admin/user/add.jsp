@@ -124,7 +124,11 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="">userType</span>
                                 </div>
-                                <s:input path="userType" class="form-control" />
+                                <s:select path="userType" class="custom-select">
+                                    <option value="0">Admin</option>
+                                    <option value="1">Customer</option>
+                                </s:select>
+<%--                                <s:input path="userType" class="form-control" />--%>
 <%--                                <s:errors path="userType" class="text-danger"></s:errors>--%>
                             </div>
                         </div>
