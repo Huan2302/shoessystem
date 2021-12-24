@@ -17,12 +17,8 @@ import java.util.List;
 
 @Controller
 public class OderController {
-    @Autowired private ProductService productService;
     @Autowired private OderService oderService;
     @Autowired private OderDetailService oderDetailService;
-    @Autowired private ProductReponsitory productReponsitory;
-    @Autowired private OderReponsitory oderReponsitory;
-    @Autowired private OderDetailReponsitory repo; //DI
     @Autowired private CategoryService categoryService;
     @Autowired private BrandService brandService;
 
