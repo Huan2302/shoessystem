@@ -27,9 +27,9 @@ public class BrandController {
     @Autowired
     private BrandService brandService;
 
-    @RequestMapping("/manager/brand")
+    @RequestMapping(value = "/manager/brand" ,method = RequestMethod.GET)
     public String home(HttpSession session, Model model) {
-        User user = (User) session.getAttribute("user");
+        User user = (User) session.getAttribute("user");//
         ModelAndView mav = null;
         if (user!=null && user.getUserType()==0){
             List<Brand> listBrand = brandService.listAll();

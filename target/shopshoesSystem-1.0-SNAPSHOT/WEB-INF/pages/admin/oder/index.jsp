@@ -72,6 +72,15 @@
                         </p>
                     </div>
                 </c:if>
+                <div>
+                    <a href="${pageContext.request.contextPath}/manager/oder/new" class="btn btn-primary btn-icon-split">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-flag"></i>
+                            </span>
+                        <span class="text">Thêm đơn hàng</span>
+                    </a>
+                </div>
+                <br>
                 <!-- DataTales Example -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
@@ -88,6 +97,7 @@
                                     <th>Tổng tiền</th>
                                     <th>Người đặt đơn</th>
                                     <th>Xử lý</th>
+                                    <th>Xóa</th>
                                 </tr>
                                 </thead>
                                 <tfoot>
@@ -98,6 +108,7 @@
                                     <th>Tổng tiền</th>
                                     <th>Người đặt đơn</th>
                                     <th>Xử lý</th>
+                                    <th>Xóa</th>
                                 </tr>
                                 </tfoot>
                                 <tbody>
@@ -105,7 +116,17 @@
                                     <tr>
                                             <td>${oder.id}</td>
                                             <td>${oder.oderDate}</td>
-                                            <td>${oder.status}</td>
+                                            <c:choose>
+                                                <c:when test="${oder.status == 0}">
+                                                    <td style="color: red">Chưa đặt hàng</td>
+                                                </c:when>
+                                                <c:when test="${oder.status == 1}">
+                                                    <td style="color: orange;">Đã đặt hàng</td>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <td style="color: green">Thành công</td>
+                                                </c:otherwise>
+                                            </c:choose>
                                             <td>${oder.total} đ</td>
                                             <td>${oder.user.userName}</td>
                                             <td>
@@ -122,6 +143,9 @@
                                                 </c:choose>
 
                                             </td>
+                                        <td>
+                                            <a class="btn btn-danger" href="${pageContext.request.contextPath}/manager/oder/delete?id=${product.id}">Delete</a>
+                                        </td>
                                     </tr>
                                     </c:forEach>
                                 </tbody>

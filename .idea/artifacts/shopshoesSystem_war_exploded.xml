@@ -55,6 +55,8 @@
           <element id="library" level="project" name="Maven: org.apache.commons:commons-lang3:3.0" />
           <element id="library" level="project" name="Maven: org.hibernate.validator:hibernate-validator:6.2.0.Final" />
           <element id="library" level="project" name="Maven: jakarta.validation:jakarta.validation-api:2.0.2" />
+          <element id="library" level="project" name="Maven: org.jsoup:jsoup:1.14.3" />
+          <element id="library" level="project" name="Maven: com.itextpdf:itextpdf:5.5.13.2" />
         </element>
       </element>
       <element id="directory" name="META-INF">

@@ -63,7 +63,7 @@
             <h4><a href="javascript:void(0)">${product.name}</a></h4>
             <div class="product-rating"> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star-half-alt"></i> <i class="far fa-star"></i> <span class="txt-gray">| 5 customer review</span> </div>
             <div class="product-price"> <ins>${product.price} đ</ins>  </div>
-            <p class="d-md-none d-lg-block text-justify">${product.description}</p>
+<%--            <p class="d-md-none d-lg-block text-justify">${product.description}</p>--%>
 
           </div>
           <div class="row">

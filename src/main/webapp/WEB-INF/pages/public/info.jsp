@@ -38,28 +38,47 @@
                             </p>
                         </div>
                     </c:if>
-                    <div class="login-form">
-                        <form action="${pageContext.request.contextPath}/thong-tin" method="post">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <input type="password" name="oldpass" class="form-control" placeholder="Mật khẩu củ">
+                    <c:if test="${not empty info}">
+                        <div class="login-form">
+                            <form action="${pageContext.request.contextPath}/thong-tin" method="post">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <input type="text" name="oldname" value="${info.userName}" class="form-control" placeholder="Sửa tên">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <input type="password" name="password" class="form-control" placeholder="Mật khẩu mới">
+                                    <div class="col-lg-6 ">
+                                        <div class="form-group ">
+                                            <input type="text" name="numberPhone" value="${info.phoneNumber}" class="form-control" placeholder="Số điện thoại">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <input type="password" name="repassword" class="form-control" placeholder="Nhập lại mật khẩu mới">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <input type="text" name="address" value="${info.address}"  class="form-control" placeholder="Địa chỉ">
+                                        </div>
                                     </div>
+                                    <div class="col-lg-12">
+                                        <div class="form-group fa-swap-opacity">
+                                            <input type="password" name="oldpass" class="form-control" placeholder="Mật khẩu củ">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <input type="password" name="password" class="form-control" placeholder="Mật khẩu mới">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <input type="password" name="repassword" class="form-control" placeholder="Nhập lại mật khẩu mới">
+                                        </div>
+                                    </div>
+
                                 </div>
-                            </div>
-                            <button class="btn theme-button animated slideInRight" href="javascript:void(0)">Register </button>
-                        </form>
-                    </div>
+                                <button class="btn theme-button animated slideInRight" href="javascript:void(0)">Register </button>
+                            </form>
+                        </div>
+                    </c:if>
+
                 </div>
             </div>
         </div>

@@ -92,7 +92,6 @@
                                 <tr>
                                     <th>Id</th>
                                     <th>Tên sản phẩm</th>
-                                    <th>Mô tả</th>
                                     <th>Giá</th>
                                     <th>Size</th>
                                     <th>Số lượng</th>
@@ -107,7 +106,6 @@
                                 <tr>
                                     <th>Id</th>
                                     <th>Tên sản phẩm</th>
-                                    <th>Mô tả</th>
                                     <th>Giá</th>
                                     <th>Size</th>
                                     <th>Số lượng</th>
@@ -123,7 +121,7 @@
                                     <tr>
                                             <td>${product.id}</td>
                                             <td>${product.name}</td>
-                                            <td>${product.description}</td>
+
                                             <td>${product.price}</td>
                                             <td>${product.size}</td>
                                             <td>${product.stock}</td>
@@ -149,8 +147,9 @@
                         </div>
                     </div>
                 </div>
-
+                <a href="${pageContext.request.contextPath}/bao-cao" style="text-decoration: blink">Báo cáo hàng tồn kho</a>
             </div>
+
             <!-- /.container-fluid -->
 
         </div>

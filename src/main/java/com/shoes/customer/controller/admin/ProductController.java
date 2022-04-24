@@ -6,6 +6,7 @@ import com.shoes.customer.service.BrandService;
 import com.shoes.customer.service.CategoryService;
 import com.shoes.customer.service.ProductService;
 import com.shoes.customer.service.Product_imgService;
+import com.shoes.customer.utils.WritePDF;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +23,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -200,5 +203,46 @@ public class ProductController {
         File file = new File(rootPath+folder+"/"+fileName);
         System.out.println("filePath:"+rootPath+folder+"/"+fileName);
         return file;
+    }
+
+    @RequestMapping("/bao-cao")
+    public String baocao(HttpServletRequest request, HttpServletResponse response){
+        // write pdf in spring mvc
+        WritePDF writePDF =new WritePDF();
+
+        final  String dirPathName = request.getServletContext().getRealPath("/download");
+        File dirFile = new File(dirPathName);
+        if (!dirFile.exists()){
+            dirFile.mkdir();
+        }
+        String fileName = "BaoCao.pdf";
+
+        String filePathName = dirPathName + File.separator + fileName; //duong đẫn thư mục
+///download/BaoCao.pdf
+
+        writePDF.write(productService.listAll(),filePathName);
+        try(OutputStream out = response.getOutputStream()){
+            response.setContentType("APPLICATION/OCTET-STREAM");
+
+//            force to download
+            response.setHeader("Content-Disposition",
+                    "attachment; filename=BaoCao.pdf");
+// FileInputStream
+            FileInputStream in = new FileInputStream(filePathName);
+
+            int i;
+            while ((i = in.read()) != -1) {
+                out.write(i);
+            }
+            in.close();
+            out.flush();
+            File oldFile = new File(filePathName);
+            if (oldFile.exists()){
+                oldFile.delete();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "admin/product";
     }
 }

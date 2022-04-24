@@ -56,7 +56,8 @@
                         <div class="col-lg-12 col-md-12">
                             <!-- menu logo -->
                             <ul class="menu-logo">
-                                <li> <a href="${pageContext.request.contextPath}/trang-chu"><img id="logo_img" src="<%=request.getContextPath()%>/teamplate/public/images/logo.png" alt="logo"> </a> </li>
+                                <li><h3 class="theme-color font-weight-bold">Dragon Shop Sneaker</h3></li>
+<%--                                <li> <a href="${pageContext.request.contextPath}/trang-chu"><img id="logo_img" src="<%=request.getContextPath()%>/teamplate/public/images/logo.png" alt="logo"> </a> </li>--%>
                             </ul>
                             <!-- menu links -->
                             <div class="menu-bar">

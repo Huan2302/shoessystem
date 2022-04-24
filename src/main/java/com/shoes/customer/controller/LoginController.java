@@ -15,15 +15,16 @@ import javax.servlet.http.HttpSession;
 @Controller(value = "loginControllerOfAdmin")
 public class LoginController {
 
-    @Autowired private UserService userService;
+    @Autowired
+    private UserService userService;
 
     @RequestMapping(value = "/dang-nhap", method = RequestMethod.GET)
     public String login(HttpSession session, ModelMap model,
                         @RequestParam(value = "error", required = false) String error) {
         User user = (User) session.getAttribute("user");
-        if(user != null){
+        if (user != null) {
             return "redirect:/trang-chu";
-        }else {
+        } else {
             session.setAttribute("user", null);
             try {
                 if (error.equals("true")) {
@@ -36,6 +37,9 @@ public class LoginController {
         }
     }
 
+    //người dùng gửi request đến server -> mapping -> service ->
+    // repository (if db có user thì trả về user ,ngược lại trả về null)
+    //-> controller
     @RequestMapping(value = "/dang-nhap", method = RequestMethod.POST)
     public String login(HttpSession session, ModelMap model, @RequestParam("email") String email,
                         @RequestParam("password") String password) {
@@ -44,7 +48,7 @@ public class LoginController {
         }
 
         User user = new User();
-        user = userService.login(email, StringUtil.md5(password));
+        user = userService.login(email, StringUtil.md5(password)); //huanvo -1234
         session.setAttribute("user", user);
 
         if (user == null) {

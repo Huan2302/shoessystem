@@ -64,7 +64,7 @@
                       <h4><a href="${pageContext.request.contextPath}/san-pham/${item.id}">${item.name}</a></h4>
                         <%--                    <div class="product-rating"> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star-half-alt"></i> <i class="far fa-star"></i></div>--%>
                       <div class="product-price"> <ins>${item.price} đ</ins> </div>
-                      <p class="d-md-none d-lg-block">${item.description}</p>
+<%--                      <p class="d-md-none d-lg-block">${item.description}</p>--%>
                       <a class="btn theme-button animated slideInRight" href="${pageContext.request.contextPath}/add-cart?id=${item.id}&quantity=1"><i class="fas fa-shopping-cart"></i> Thêm vào giỏ hàng </a> </div>
                   </div>
                 </div>
@@ -79,20 +79,6 @@
             </c:otherwise>
           </c:choose>
 
-
-
-
-          <!-- Start Pagination-->
-          <div class="product-widget">
-            <ul class="pagination justify-content-center">
-              <li class="page-item"><a class="page-link" href="javascript:void(0)"><span class="ti-angle-double-left"></span></a></li>
-              <li class="page-item active"><a class="page-link" href="javascript:void(0)">1</a></li>
-              <li class="page-item"><a class="page-link" href="javascript:void(0)">2</a></li>
-              <li class="page-item"><a class="page-link" href="javascript:void(0)">3</a></li>
-              <li class="page-item"><a class="page-link" href="javascript:void(0)"><span class="ti-angle-double-right"></span></a></li>
-            </ul>
-          </div>
-          <!-- End Pagination--> 
         </div>
         <!-- End Product List--> 
       </div>

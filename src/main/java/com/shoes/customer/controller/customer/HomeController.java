@@ -50,12 +50,16 @@ public class HomeController {
     public ModelAndView home(HttpSession session){
         ModelAndView mav = new ModelAndView("public/index");
         mav.addObject("listProduct",productService.listAll());
+
+        //KEY : VALUE -> VALUE (ĐANG CẦN LẤY RA 1 LIST PRODUCT ) -> gán cho  listProduct
         return mav;
     }
 
     @GetMapping("/thong-tin")
-    public ModelAndView info(){
+    public ModelAndView info(HttpSession session){
         ModelAndView mav = new ModelAndView("public/info");
+        User user = (User) session.getAttribute("user");
+        mav.addObject("info",user);
         return mav;
     }
 
@@ -63,12 +67,15 @@ public class HomeController {
     public String infom(@RequestParam("oldpass") String oldpass,
                         @RequestParam("password")String password,
                         @RequestParam("repassword")String repassword,
+                        @RequestParam("oldname") String name,
+                        @RequestParam("numberPhone") String numberPhone,
+                        @RequestParam("address") String address,
                         HttpSession session,
                         RedirectAttributes re){
         User user = (User) session.getAttribute("user");
         if (new StringUtil().md5(oldpass).equals(user.getPassword())){
             if (password.equals(repassword)){
-                userService.editPass(new StringUtil().md5(password),user.getId());
+                userService.editPass(new StringUtil().md5(password),user.getId(),name,numberPhone,address);
                 re.addFlashAttribute("msg","Sửa mật khẩu thành công");
             }else {
                 re.addFlashAttribute("err","Mật khẩu không trùng nhau");

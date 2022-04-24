@@ -76,6 +76,16 @@
                                                    id="exampleRepeatPassword" placeholder="Nhập lại mật khẩu">
                                         </div>
                                     </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-6 mb-3 mb-sm-0">
+                                            <input type="text" name="phoneNumber" class="form-control form-control-user"
+                                                   id="exampleInputPhone" placeholder="Số điện thoại">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <input type="text" name="address" class="form-control form-control-user"
+                                                   id="exampleRepeatAdreess" placeholder="Địa chỉ">
+                                        </div>
+                                    </div>
                                     <button type="submit" onclick="submitForm();" class="btn btn-primary btn-user btn-block">
                                         Đăng ký
                                     </button>

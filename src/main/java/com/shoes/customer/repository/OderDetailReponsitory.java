@@ -14,4 +14,5 @@ public interface OderDetailReponsitory extends CrudRepository<OderDetail,Long> {
     @Query(value = "select * from OderDetail where oderId = ?1", nativeQuery = true)
     public List<OderDetail> findAllByOderDetailId(long id);
 
+    List<OderDetail> findAllByOder(Oder oder);
 }

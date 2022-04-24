@@ -10,4 +10,5 @@ public class MessageConstant {
     public static final String PAY_SUSSCESS = "Thanh toán thành công";
     public static final String HANDLE = "Vận chuyển thành công";
     public static final String HANDLE_ERR = "Người dùng chưa đặt hàng!!!";
+    public static final String ADD_ODER = "Thêm đơn hàng thành công";
 }

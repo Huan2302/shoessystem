@@ -61,15 +61,4 @@ public class OderController {
             return "redirect:/dang-nhap";
         }
     }
-
-//    public List<OderDetail> showCart(HttpSession session){
-//        User user = (User) session.getAttribute("user");
-//        if (user!=null){
-//            Oder oder = oderService.findOderByUser(user);
-//            List<OderDetail> list = oderDetailService.findAllByByOder(oder);
-//            return list;
-//        }else {
-//            return null;
-//        }
-//    }
 }

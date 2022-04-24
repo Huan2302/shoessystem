@@ -21,6 +21,7 @@ public class OderDetailService {
     @Autowired private OderDetailReponsitory oderDetailReponsitory;
     @Autowired private CategoryService categoryService;
     @Autowired private OderService oderService;
+    @Autowired private ProductService productService;
 
 
     public void save(OderDetail oder) {
@@ -57,6 +58,7 @@ public class OderDetailService {
                 addedQuantity = oderDetail.getQuantity() + quantity;
                 oderDetail.setQuantity(addedQuantity);
                 oderDetail.setTotal(addedQuantity*oderDetail.getUnitPrice());
+                product.setStock(product.getStock() - oderDetail.getQuantity());
             }else {
                 oderDetail = new OderDetail();
                 oderDetail.setOder(oder);
@@ -64,6 +66,7 @@ public class OderDetailService {
                 oderDetail.setQuantity(quantity);
                 oderDetail.setUnitPrice(product.getPrice());
                 oderDetail.setTotal(quantity*(product.getPrice()));
+                product.setStock(product.getStock() - oderDetail.getQuantity());
             }
             oder.setOderDate(new Date());
             oder.setTotal(oder.getTotal()+oderDetail.getUnitPrice()*quantity);
@@ -80,10 +83,16 @@ public class OderDetailService {
             oderDetail.setUnitPrice(product.getPrice());
             oderDetail.setTotal(quantity*(product.getPrice()));
             oder.setTotal(oderDetail.getTotal());
+            product.setStock(product.getStock() - oderDetail.getQuantity());
         }
         oderService.save(oder);
+        productService.save(product);
         save(oderDetail);
         return addedQuantity;
+    }
+
+    public List<OderDetail> findAllByOder(Oder oder){
+        return repo.findAllByOder(oder);
     }
 }
 

@@ -9,6 +9,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @Configuration
 @ComponentScan("com.shoes")
 public class WebMvcConfig {
+    // là khi ông gửi request đến trang web thì nó sẻ trả về view
     @Bean(name = "viewResolver")
     public InternalResourceViewResolver getViewResolver() {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
@@ -17,6 +18,7 @@ public class WebMvcConfig {
         return viewResolver;
     }
 
+    // để tải nhiều ảnh
     @Bean(name = "multipartResolver")
     public CommonsMultipartResolver multipartResolver() {
         CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();

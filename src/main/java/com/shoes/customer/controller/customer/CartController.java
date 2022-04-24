@@ -30,12 +30,14 @@ public class CartController {
     @Autowired private CategoryService categoryService;
     @Autowired private BrandService brandService;
 
+    // kiểm tra phiên người dùng
     @ModelAttribute
     public void modelAtr(Model model, HttpSession session){
         User user = (User) session.getAttribute("user");
         List<OderDetail> list = new ArrayList<>();
         Oder oder = new Oder();
         if (user!=null){
+            //lấy ra chi tiết đơn hàng
             oder = oderService.findOderByUserId(user.getId());
             if ( oder!= null && oder.getStatus()==0){
                 list = oderDetailService.findAllByOderDetailId(oder.getId());

@@ -26,6 +26,7 @@ public class JpaConfig {
         return factoryBean;
     }
 
+    // kết nối giữa project với database
     @Bean
     public JpaTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
@@ -34,6 +35,7 @@ public class JpaConfig {
         return transactionManager;
     }
 
+    // cập nhập CSDL
     Properties additionalProperties() {
         Properties properties = new Properties();
         properties.setProperty("hibernate.hbm2ddl.auto", "update");
@@ -44,6 +46,7 @@ public class JpaConfig {
         return properties;
     }
 
+    //Trả về tiếng việt
     @Bean(name = "messageSource") // get messages
     public MessageSource messageSource() {
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();

@@ -65,5 +65,4 @@ public class ProductService {
     public List<Product> sortBrandPriceDESC(long id){
         return repo.sortBrandPriceDESC(id);
     }
-
 }

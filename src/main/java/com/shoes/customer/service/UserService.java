@@ -34,11 +34,11 @@ public class UserService {
         return repo.login(email, password);
     }
 
-    public void register(String email,String pass,String name) {
-        repo.register(email,pass,name);
+    public void register(String email,String pass,String name,String phoneNumber, String address) {
+        repo.register(email,pass,name,phoneNumber,address);
     }
 
-    public void editPass(String pass,long id) {
-        repo.editPasss(pass,id);
+    public void editPass(String pass,long id,String name,String numberPhone,String address) {
+        repo.editPasss(pass,id,name,numberPhone,address);
     }
 }
